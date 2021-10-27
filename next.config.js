@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const withMDX = require("@next/mdx")({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: []
+  },
+  extension: /\.mdx$/
+});
+
+module.exports = withMDX({
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
   experimental: {
     concurrentFeatures: true,
@@ -9,4 +19,4 @@ module.exports = {
   images: {
     formats: ["image/avif", "image/webp"]
   }
-};
+});

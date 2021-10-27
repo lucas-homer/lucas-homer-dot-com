@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.22",
+    "@next/mdx": "^12.0.0",
     "next": "12.0.0",
     "react": "^18.0.0-alpha-4298ddbc5-20211023",
     "react-dom": "^18.0.0-alpha-4298ddbc5-20211023"
