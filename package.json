@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "tailwindcss": "^2.2.17",
     "@tailwindcss/typography": "^0.4.1",
     "esbuild": "^0.13.9",
     "mdx-bundler": "^6.0.2",
@@ -23,7 +24,6 @@
     "eslint": "7",
     "eslint-config-next": "12.0.0",
     "postcss": "^8.3.11",
-    "tailwindcss": "^2.2.17",
     "typescript": "4.4.4"
   }
 }

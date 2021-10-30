@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-module.exports = withMDX({
+module.exports = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
   experimental: {
@@ -11,4 +11,4 @@ module.exports = withMDX({
   images: {
     formats: ["image/avif", "image/webp"]
   }
-});
+};
