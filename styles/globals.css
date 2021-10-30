@@ -7,14 +7,14 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: optional;
-  src: url(/fonts/JosefinSans-VariableFont_wght.ttf) format("truetype");
+  src: url(/fonts/JosefinSans-VariableFont_wght.woff2) format("woff2");
 }
 @font-face {
   font-family: "Josefin Sans Italic";
   font-style: italic;
   font-weight: 100 900;
   font-display: optional;
-  src: url(/fonts/JosefinSans-Italic-VariableFont_wght.ttf) format("truetype");
+  src: url(/fonts/JosefinSans-Italic-VariableFont_wght.woff2) format("woff2");
 }
 
 @font-face {
@@ -22,15 +22,15 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: optional;
-  src: url(/fonts/PlayfairDisplay-VariableFont_wght.ttf) format("truetype");
+  src: url(/fonts/PlayfairDisplay-VariableFont_wght.woff2) format("woff2");
 }
 @font-face {
   font-family: "Playfair Display Italic";
   font-style: italic;
   font-weight: 100 900;
   font-display: optional;
-  src: url(/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf)
-    format("truetype");
+  src: url(/fonts/PlayfairDisplay-Italic-VariableFont_wght.woff2)
+    format("woff2");
 }
 
 html {
