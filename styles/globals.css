@@ -5,14 +5,14 @@
 @font-face {
   font-family: "Josefin Sans";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 700;
   font-display: optional;
   src: url(/fonts/JosefinSans-VariableFont_wght.woff2) format("woff2");
 }
 @font-face {
-  font-family: "Josefin Sans Italic";
+  font-family: "Josefin Sans";
   font-style: italic;
-  font-weight: 100 900;
+  font-weight: 400 700;
   font-display: optional;
   src: url(/fonts/JosefinSans-Italic-VariableFont_wght.woff2) format("woff2");
 }
@@ -20,18 +20,23 @@
 @font-face {
   font-family: "Playfair Display";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 900;
   font-display: optional;
   src: url(/fonts/PlayfairDisplay-VariableFont_wght.woff2) format("woff2");
 }
 @font-face {
-  font-family: "Playfair Display Italic";
+  font-family: "Playfair Display";
   font-style: italic;
-  font-weight: 100 900;
+  font-weight: 400 900;
   font-display: optional;
   src: url(/fonts/PlayfairDisplay-Italic-VariableFont_wght.woff2)
     format("woff2");
 }
+
+/* ::selection {
+  background-color: #47a3f3;
+  color: #fefefe;
+} */
 
 html {
   min-width: 360px;
