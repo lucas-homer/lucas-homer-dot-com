@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.1",
+    "classnames": "^2.3.1",
     "contentlayer": "0.0.27",
     "esbuild": "^0.13.9",
     "mdx-bundler": "^6.0.2",
@@ -18,7 +19,8 @@
     "next-themes": "0.0.15",
     "react": "^18.0.0-alpha-4298ddbc5-20211023",
     "react-dom": "^18.0.0-alpha-4298ddbc5-20211023",
-    "tailwindcss": "^2.2.17"
+    "tailwindcss": "^2.2.17",
+    "use-delayed-render": "0.0.7"
   },
   "devDependencies": {
     "@types/node": "16.11.6",
