@@ -1,6 +1,7 @@
+const { withContentlayer } = require("next-contentlayer");
 /** @type {import('next').NextConfig} */
 
-module.exports = {
+module.exports = withContentlayer()({
   async headers() {
     return [
       {
@@ -49,6 +50,22 @@ module.exports = {
     urlImports: ["https://cdn.skypack.dev"]
   },
   images: {
+    domains: [
+      "i.scdn.co", // Spotify Album Art
+      "pbs.twimg.com" // Twitter Profile Picture
+    ],
     formats: ["image/avif", "image/webp"]
+  },
+  webpack: (config, { dev, isServer }) => {
+    // Replace React with Preact only in client production build
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat"
+      });
+    }
+
+    return config;
   }
-};
+});
