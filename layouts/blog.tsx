@@ -2,14 +2,14 @@ import Image from "next/image";
 import { parseISO, format } from "date-fns";
 
 import Container from "components/Container";
-import Subscribe from "components/Subscribe";
-import ViewCounter from "components/ViewCounter";
+// import Subscribe from "components/Subscribe";
+// import ViewCounter from "components/ViewCounter";
 import type { PropsWithChildren } from "react";
 import type { Blog } from ".contentlayer/types";
 
-const editUrl = slug =>
+const editUrl = (slug: Blog["slug"]) =>
   `https://github.com/lucas-homer/lucas-homer-dot-com/edit/master/data/blog/${slug}.mdx`;
-const discussUrl = slug =>
+const discussUrl = (slug: Blog["slug"]) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `https://lucashomer.com/blog/${slug}`
   )}`;
@@ -47,15 +47,15 @@ export default function BlogLayout({
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
             {post.readingTime.text}
             {` • `}
-            <ViewCounter slug={post.slug} />
+            {/* <ViewCounter slug={post.slug} /> */}
           </p>
         </div>
         <div className="w-full mt-4 prose dark:prose-dark max-w-none">
           {children}
         </div>
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <Subscribe />
-        </div>
+        </div> */}
         <div className="text-sm text-gray-700 dark:text-gray-300">
           <a
             href={discussUrl(post.slug)}
