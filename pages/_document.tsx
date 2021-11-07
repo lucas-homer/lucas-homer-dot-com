@@ -6,30 +6,72 @@ export default function Document(props: any) {
       <Head>
         <link
           rel="preload"
-          href="/fonts/JosefinSans-VariableFont_wght.woff2"
+          href="/fonts/Lato-Thin.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/PlayfairDisplay-VariableFont_wght.woff2"
+          href="/fonts/Lato-ThinItalic.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/JosefinSans-Italic-VariableFont_wght.woff2"
+          href="/fonts/Lato-Light.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/PlayfairDisplay-Italic-VariableFont_wght.woff2"
+          href="/fonts/Lato-LightItalic.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-Italic.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-Bold.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-BoldItalic.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-Black.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Lato-BlackItalic.ttf"
+          as="font"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link href="/static/favicon.ico" rel="shortcut icon" />

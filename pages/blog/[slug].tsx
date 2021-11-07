@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { GetStaticPropsContext } from "next";
 import { getMDXComponent } from "mdx-bundler/client";
 // import { getTweets } from 'lib/twitter';
 import components from "components/MDXComponents";
@@ -25,14 +26,7 @@ export default function Post({
 
   return (
     <BlogLayout post={post}>
-      <Component
-        components={
-          {
-            ...components
-            // StaticTweet
-          } as any
-        }
-      />
+      <Component components={components as any} />
     </BlogLayout>
   );
 }
@@ -44,8 +38,8 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
-  const post = allBlogs.find(post => post.slug === params.slug);
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+  const post = allBlogs.find(post => post.slug === params?.slug);
   // const tweets = await getTweets(post.tweetIds);
 
   return {

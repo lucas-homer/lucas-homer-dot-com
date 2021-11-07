@@ -32,13 +32,13 @@ export default function BlogLayout({
         </h1>
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
-            <Image
+            {/* <Image
               alt="Lee Robinson"
               height={24}
               width={24}
               src="/avatar.jpg"
               className="rounded-full"
-            />
+            /> */}
             <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
               {"Lee Robinson / "}
               {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}

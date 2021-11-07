@@ -1,8 +1,8 @@
 ---
-title: "Everything I Know About Style Guides, Design Systems, and Component Libraries"
+title: "Test Post"
 publishedAt: "2019-08-07"
-summary: "A deep-dive on everything I've learned in the past year building style guides, design systems, component libraries, and their best practices."
-image: "/static/images/style-guides-component-libraries-design-systems/banner.jpg"
+summary: "An attempt was made"
+image: "/static/images/test-post/baby-yoda.png"
 ---
 
 For the better part of the last year, I've been investing heavily in front-end development and design.
@@ -11,14 +11,14 @@ Since then, I've learned a lot about style guides, design systems, component lib
 
 ## Table of Contents
 
-1.  [Why Should You Care?](/blog/style-guides-component-libraries-design-systems#why-should-you-care)
-2.  [What is a Style Guide?](/blog/style-guides-component-libraries-design-systems#what-is-a-style-guide)
-3.  [What is a Component Library?](/blog/style-guides-component-libraries-design-systems#what-is-a-component-library)
-4.  [What is a Design System?](/blog/style-guides-component-libraries-design-systems#what-is-a-design-system)
-5.  [Where Should You Begin?](/blog/style-guides-component-libraries-design-systems#where-should-you-begin)
-6.  [Building the Design System](/blog/style-guides-component-libraries-design-systems#building-the-design-system)
-7.  [Conclusion](/blog/style-guides-component-libraries-design-systems#conclusion)
-8.  [Resources](/blog/style-guides-component-libraries-design-systems#resources)
+1.  [Why Should You Care?](/blog/test-post#why-should-you-care)
+2.  [What is a Style Guide?](/blog/test-post#what-is-a-style-guide)
+3.  [What is a Component Library?](/blog/test-post#what-is-a-component-library)
+4.  [What is a Design System?](/blog/test-post#what-is-a-design-system)
+5.  [Where Should You Begin?](/blog/test-post#where-should-you-begin)
+6.  [Building the Design System](/blog/test-post#building-the-design-system)
+7.  [Conclusion](/blog/test-post#conclusion)
+8.  [Resources](/blog/test-post#resources)
 
 ## Why Should You Care?
 
@@ -223,13 +223,6 @@ For optimal performance, consider using a near-zero runtime solution like [Stitc
 If your component library needs to output raw HTML/CSS, I'd recommend sticking with Sass. A great example of this is IBM's [Carbon Design System](https://www.carbondesignsystem.com/components/button/code).
 You can use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to contain your [design tokens](https://www.lightningdesignsystem.com/design-tokens/).
 
-<Image
-  alt={`Design System Button`}
-  src={`/static/images/style-guides-component-libraries-design-systems/button.png`}
-  width={821}
-  height={154}
-/>
-
 ```html
 <button class="bx--btn bx--btn--primary" type="button">Button</button>
 ```
@@ -241,29 +234,11 @@ If you're using React, check out [How Should I Style My React Application?](/blo
 With your technical requirements defined and your style guide started, you should now be able
 to begin constructing a component library. My recommendation would be to use **React alongside [Storybook](https://storybook.js.org/)**.
 
-<a aria-label="Component Driven Development" href="https://storybook.js.org/">
-  <Image
-    alt={`Component Driven Development`}
-    src={`/static/images/style-guides-component-libraries-design-systems/component-driven-development.jpg`}
-    width={1000}
-    height={537}
-  />
-</a>
-
 **Creating a component library is much more than just translating the style guide into code.**
 
 You'll need to think about how consumers will interact with your components.
 What sort of API would they expect? What provides the most clarity and is self-documenting?
 For example, consider buttons. You have different variations of buttons - primary, secondary, etc.
-
-<a aria-label="Buttons" href="https://eva.design/">
-  <Image
-    alt={`Buttons`}
-    src={`/static/images/style-guides-component-libraries-design-systems/buttons.png`}
-    width={1000}
-    height={641}
-  />
-</a>
 
 Should you have separate components for each?
 

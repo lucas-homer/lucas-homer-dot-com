@@ -2,7 +2,7 @@ const { spacing, fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  purge: ["./pages/**/*.tsx", "./components/**/*.tsx", "./layouts/**/*.tsx"],
   darkMode: "class",
   theme: {
     extend: {
@@ -21,8 +21,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ["Josefin Sans", ...fontFamily.sans],
-        serif: ["Playfair Display", ...fontFamily.serif]
+        sans: ["Lato", ...fontFamily.sans]
       },
       typography: theme => ({
         DEFAULT: {
@@ -62,7 +61,8 @@ module.exports = {
             },
             "h2,h3,h4": {
               color: theme("colors.gray.100"),
-              "scroll-margin-top": spacing[32]
+              "scroll-margin-top": spacing[32],
+              fontFamily: theme("font. ")
             },
             hr: { borderColor: theme("colors.gray.700") },
             ol: {
