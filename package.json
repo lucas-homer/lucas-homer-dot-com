@@ -18,8 +18,8 @@
     "next": "12.0.0",
     "next-contentlayer": "0.0.27",
     "next-themes": "0.0.15",
-    "react": "^18.0.0-alpha-4298ddbc5-20211023",
-    "react-dom": "^18.0.0-alpha-4298ddbc5-20211023",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "swr": "^1.0.1",
     "tailwindcss": "^2.2.17",
     "use-delayed-render": "0.0.7"

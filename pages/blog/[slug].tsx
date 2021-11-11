@@ -13,7 +13,7 @@ export default function Post({
 }: // tweets
 {
   post: Blog;
-  tweets: any[];
+  // tweets: any[];
 }) {
   const Component = useMemo(
     () => getMDXComponent(post.body.code),

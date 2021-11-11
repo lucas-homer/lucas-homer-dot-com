@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
+import { PropsWithChildren } from "react";
 
 import ProsCard from "components/ProsCard";
 import ConsCard from "components/ConsCard";
@@ -10,7 +11,10 @@ import ConsCard from "components/ConsCard";
 import Step from "components/Step";
 import ImageWithTheme from "components/ImageWithTheme";
 
-const CustomLink = props => {
+type CustomLinkProps = {
+  href: string;
+};
+const CustomLink = (props: PropsWithChildren<CustomLinkProps>) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
 
@@ -25,7 +29,7 @@ const CustomLink = props => {
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 };
 
-function RoundedImage(props) {
+function RoundedImage(props: ImageProps) {
   return <Image alt={props.alt} className="rounded-lg" {...props} />;
 }
 

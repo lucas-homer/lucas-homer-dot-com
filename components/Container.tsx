@@ -8,6 +8,7 @@ import cn from "classnames";
 
 import Footer from "components/Footer";
 import MobileMenu from "components/MobileMenu";
+import styles from "styles/Container.module.css";
 
 function NavItem({ href, text }: { href: string; text: string }) {
   const router = useRouter();
@@ -84,7 +85,9 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
           <a href="#skip" className="skip-nav">
             Skip to content
           </a>
-          <h1 className="logo bg-gray-900 dark:bg-gray-50 text-center text-white dark:text-black">
+          <h1
+            className={`${styles.logo} bg-gray-900 dark:bg-gray-50 text-center text-white dark:text-black`}
+          >
             <Link href="/">
               <a>Lucas Homer</a>
             </Link>
