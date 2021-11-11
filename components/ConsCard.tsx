@@ -1,4 +1,10 @@
-export default function ConsCard({ title, cons }) {
+export default function ConsCard({
+  title,
+  cons
+}: {
+  title: string;
+  cons: Array<string>;
+}) {
   return (
     <div className="border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900 rounded-xl p-6 my-6 w-full">
       <span>{`You might not use ${title} if...`}</span>
