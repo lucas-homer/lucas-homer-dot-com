@@ -20,19 +20,16 @@ export default function Blog({
     );
 
   return (
-    <Container
-      title="Blog – Lee Robinson"
-      description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
-    >
+    <Container title="Blog – Lucas Homer" description=".">
       <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-16">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Blog
         </h1>
-        <p className="mb-4 text-gray-600 dark:text-gray-400">
+        {/* <p className="mb-4 text-gray-600 dark:text-gray-400">
           {`I've been writing online since 2014, mostly about web development and tech careers.
             In total, I've written ${posts.length} articles on this site.
             Use the search below to filter by title.`}
-        </p>
+        </p> */}
         <div className="relative w-full mb-4">
           <input
             aria-label="Search articles"
@@ -56,7 +53,7 @@ export default function Blog({
             />
           </svg>
         </div>
-        {!searchValue && (
+        {/* {!searchValue && (
           <>
             <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
               Most Popular
@@ -77,7 +74,7 @@ export default function Blog({
               slug="monorepo-lerna-yarn-workspaces"
             />
           </>
-        )}
+        )} */}
         <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
           All Posts
         </h3>

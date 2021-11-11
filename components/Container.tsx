@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, PropsWithChildren } from "react";
 import { useTheme } from "next-themes";
@@ -78,11 +79,16 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <div className="flex flex-col justify-center px-8">
-        <nav className="flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-16  text-gray-900 bg-gray-50  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
+      <div className="flex flex-col justify-center px-8 bg-gray-0 dark:bg-gray-900">
+        <nav className="flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-8  text-gray-900 bg-gray-50  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
           <a href="#skip" className="skip-nav">
             Skip to content
           </a>
+          <h1 className="logo bg-gray-900 dark:bg-gray-50 text-center text-white dark:text-black">
+            <Link href="/">
+              <a>Lucas Homer</a>
+            </Link>
+          </h1>
           <div className="ml-[-0.60rem]">
             <MobileMenu />
             <NavItem href="/" text="Home" />
@@ -127,7 +133,7 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
       </div>
       <main
         id="skip"
-        className="flex flex-col justify-center px-8 bg-gray-50 dark:bg-gray-900"
+        className="flex flex-col justify-center px-8 bg-gray-100 dark:bg-gray-800"
       >
         {children}
         <Footer />
