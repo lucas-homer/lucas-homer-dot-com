@@ -18,8 +18,8 @@ const ExternalLink = ({
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col justify-center items-start w-full py-8 px-16 bg-gray-900 dark:bg-gray-0 ">
-      <div className="w-full max-w-2xl grid grid-cols-1 gap-4 py-16 sm:grid-cols-3">
+    <footer className="flex flex-col justify-center bg-gray-900 dark:bg-gray-0 px-8">
+      <div className="flex items-center justify-between w-full relative max-w-2xl py-24 mx-auto">
         <div className="flex flex-col space-y-4">
           <Link href="/">
             <a className={footerTextClasses}>Home</a>
