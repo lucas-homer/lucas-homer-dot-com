@@ -1,6 +1,7 @@
-import { writeFileSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import RSS from 'rss';
-import { allBlogs } from '.contentlayer/data';
+import matter from 'gray-matter';
 
 async function generate() {
   const feed = new RSS({
@@ -9,12 +10,16 @@ async function generate() {
     feed_url: 'https://lucashomer/feed.xml'
   });
 
-  allBlogs.map((post) => {
+  const blogPosts = readdirSync(join(process.cwd(), 'data', 'blog'));
+  blogPosts.map((name) => {
+    const content = readFileSync(join(process.cwd(), 'data', 'blog', name));
+    const frontMatter = matter(content);
+
     feed.item({
-      title: post.title,
-      url: `https://lucashomer.com/blog/${post.slug}`,
-      date: post.publishedAt,
-      description: post.summary
+      title: frontMatter.title,
+      url: `https://lucashomer.com/blog/${frontMatter.slug}`,
+      date: frontMatter.publishedAt,
+      description: frontMatter.summary
     });
   });
 

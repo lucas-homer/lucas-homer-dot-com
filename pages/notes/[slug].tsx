@@ -1,33 +1,33 @@
-import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
-import components from "components/MDXComponents";
-import NoteLayout from "layouts/note";
-import { allNotes } from ".contentlayer/data";
-import type { Note } from ".contentlayer/types";
-import { GetStaticPropsContext } from "next";
+import { useMemo } from 'react';
+import { getMDXComponent } from 'mdx-bundler/client';
+import components from 'components/MDXComponents';
+import NoteLayout from 'layouts/note';
+import { GetStaticPropsContext } from 'next';
+import { getFileBySlug, getFiles } from 'lib/mdx';
 
-export default function NotePage(note: Note) {
-  const Component = useMemo(
-    () => getMDXComponent(note.body.code),
-    [note.body.code]
-  );
+export default function Note({ note }) {
+  const Component = useMemo(() => getMDXComponent(note.code), [note.code]);
 
   return (
-    <NoteLayout note={note}>
+    <NoteLayout frontMatter={note.frontMatter}>
       <Component components={components as any} />
     </NoteLayout>
   );
 }
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const notes = await getFiles('notes');
+
   return {
-    paths: allNotes.map(s => ({ params: { slug: s.slug } })),
+    paths: notes.map((note) => ({
+      params: { slug: note.replace(/\.mdx/, '') }
+    })),
     fallback: false
   };
 }
 
-export function getStaticProps({ params }: GetStaticPropsContext) {
-  const note = allNotes.find(note => note.slug === params?.slug);
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+  const note = await getFileBySlug('notes', params.slug);
 
-  return { props: note };
+  return { props: { note } };
 }

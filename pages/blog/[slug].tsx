@@ -1,51 +1,34 @@
-import { useMemo } from "react";
-import { GetStaticPropsContext } from "next";
-import { getMDXComponent } from "mdx-bundler/client";
-// import { getTweets } from 'lib/twitter';
-import components from "components/MDXComponents";
-import BlogLayout from "layouts/blog";
-// import Tweet from 'components/Tweet';
-import { allBlogs } from ".contentlayer/data";
-import type { Blog } from ".contentlayer/types";
+import { useMemo } from 'react';
+import { getMDXComponent } from 'mdx-bundler/client';
+import { getFiles, getFileBySlug } from 'lib/mdx';
+import components from 'components/MDXComponents';
+import BlogLayout from 'layouts/blog';
 
-export default function Post({
-  post
-}: // tweets
-{
-  post: Blog;
-  // tweets: any[];
-}) {
-  const Component = useMemo(
-    () => getMDXComponent(post.body.code),
-    [post.body.code]
-  );
-  // const StaticTweet = ({ id }) => {
-  //   const tweet = tweets.find((tweet) => tweet.id === id);
-  //   return <Tweet {...tweet} />;
-  // };
+export default function Blog({ post }) {
+  const Component = useMemo(() => getMDXComponent(post.code), [post.code]);
 
   return (
-    <BlogLayout post={post}>
+    <BlogLayout frontMatter={post.frontMatter}>
       <Component components={components as any} />
     </BlogLayout>
   );
 }
 
 export async function getStaticPaths() {
+  const posts = await getFiles('blog');
+
   return {
-    paths: allBlogs.map(p => ({ params: { slug: p.slug } })),
+    paths: posts.map((post) => ({
+      params: {
+        slug: post.replace(/\.mdx/, '')
+      }
+    })),
     fallback: false
   };
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const post = allBlogs.find(post => post.slug === params?.slug);
-  // const tweets = await getTweets(post.tweetIds);
+export async function getStaticProps({ params }) {
+  const post = await getFileBySlug('blog', params.slug);
 
-  return {
-    props: {
-      post
-      // tweets
-    }
-  };
+  return { props: { post } };
 }

@@ -1,8 +1,8 @@
-import { allNotes } from ".contentlayer/data";
-import Container from "components/Container";
-import NoteCard from "components/NoteCard";
-import { pick } from "lib/utils";
-import type { InferGetStaticPropsType } from "next";
+import Container from 'components/Container';
+import NoteCard from 'components/NoteCard';
+import { getAllFilesFrontMatter } from 'lib/mdx';
+import { pick } from 'lib/utils';
+import type { InferGetStaticPropsType } from 'next';
 
 export default function Notes({
   notes
@@ -21,7 +21,7 @@ export default function Notes({
           other odds and ends.
         </p>
         <div className="grid w-full grid-cols-1 gap-4 my-2 mt-4 sm:grid-cols-2">
-          {notes.map(note => (
+          {notes.map((note) => (
             <NoteCard
               key={note.slug}
               title={note.title}
@@ -35,10 +35,8 @@ export default function Notes({
   );
 }
 
-export function getStaticProps() {
-  const notes = allNotes.map(note =>
-    pick(note, ["slug", "title", "description"])
-  );
+export async function getStaticProps() {
+  const notes = await getAllFilesFrontMatter('notes');
 
   return { props: { notes } };
 }

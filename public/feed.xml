@@ -4,14 +4,12 @@
         <description><![CDATA[Lucas Homer]]></description>
         <link>https://lucashomer.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 13 Nov 2021 20:15:36 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 14 Nov 2021 18:53:42 GMT</lastBuildDate>
         <atom:link href="https://lucashomer/feed.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[Test Post]]></title>
-            <description><![CDATA[An attempt was made]]></description>
-            <link>https://lucashomer.com/blog/test-post</link>
-            <guid isPermaLink="true">https://lucashomer.com/blog/test-post</guid>
-            <pubDate>Wed, 07 Aug 2019 00:00:00 GMT</pubDate>
+            <title><![CDATA[No title]]></title>
+            <link>https://lucashomer.com/blog/undefined</link>
+            <guid isPermaLink="true">https://lucashomer.com/blog/undefined</guid>
         </item>
     </channel>
 </rss>
