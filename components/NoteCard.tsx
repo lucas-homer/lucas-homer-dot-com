@@ -1,11 +1,6 @@
-import Link from "next/link";
-import { Note } from ".contentlayer/types";
+import Link from 'next/link';
 
-export default function NoteCard({
-  title,
-  description,
-  slug
-}: Pick<Note, "title" | "description" | "slug">) {
+export default function NoteCard({ title, description, slug }) {
   return (
     <Link href={`/notes/${slug}`}>
       <a className="border border-grey-200 dark:border-gray-800 rounded p-4 w-full bg-white dark:bg-gray-900">
