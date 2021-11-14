@@ -21,15 +21,14 @@
 }
 
 .menu {
-  padding: 0 28px;
+  padding: 0 32px;
   margin: 0;
   padding-top: 24px;
   width: 100%;
   height: 100vh;
   z-index: 1000;
   opacity: 0;
-  left: 0;
-  top: 116px;
+  left: -32px;
   transition: opacity 300ms ease, transform 300ms ease;
 }
 
