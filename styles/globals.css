@@ -68,6 +68,88 @@
   src: url(/fonts/Lato-BlackItalic.ttf) format('truetype');
 }
 
+/* ***** */
+
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 400;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 400;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 500;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-Medium.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 500;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-MediumItalic.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 600;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-SemiBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 600;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-SemiBoldItalic.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 700;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 700;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-BoldItalic.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 800;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-ExtraBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 800;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-ExtraBoldItalic.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 900;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-Black.ttf) format('truetype');
+}
+@font-face {
+  font-family: PlayfairDisplay;
+  font-weight: 900;
+  font-style: italic;
+  font-display: optional;
+  src: url(/fonts/PlayfairDisplay-BlackItalic.ttf) format('truetype');
+}
+
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;
@@ -118,9 +200,9 @@ html {
   }
 }
 
-/* .prose {
-  @apply font-serif;
-} */
+.headline {
+  @apply font-serif font-bold;
+}
 
 .prose .anchor {
   @apply absolute invisible;
