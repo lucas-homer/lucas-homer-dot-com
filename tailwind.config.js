@@ -62,8 +62,7 @@ module.exports = {
             },
             'h2,h3,h4': {
               color: theme('colors.gray.100'),
-              'scroll-margin-top': spacing[32],
-              fontFamily: theme('font. ')
+              'scroll-margin-top': spacing[32]
             },
             hr: { borderColor: theme('colors.gray.700') },
             ol: {
