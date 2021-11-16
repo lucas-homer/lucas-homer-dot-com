@@ -52,7 +52,7 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
       <Header />
       <main
         id="skip"
-        className="flex flex-col justify-center px-8 bg-gray-100 dark:bg-gray-800"
+        className="flex flex-col justify-center bg-gray-100 dark:bg-gray-800"
       >
         {children}
       </main>

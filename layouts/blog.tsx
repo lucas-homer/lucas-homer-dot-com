@@ -1,4 +1,5 @@
 import { parseISO, format } from 'date-fns';
+import Image from 'next/image';
 
 import Container from 'components/Container';
 
@@ -18,23 +19,32 @@ export default function BlogLayout({ children, frontMatter }) {
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
     >
+      <Image
+        alt={`Hero image - ${frontMatter.title}`}
+        height={600}
+        width={1000}
+        priority
+        src={frontMatter.image}
+      />
       <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-extrabold font-serif tracking-tight text-black md:text-5xl dark:text-white">
-          {frontMatter.title}
-        </h1>
-        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
-          <div className="flex items-center">
-            <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              {'Lucas Homer / '}
-              {format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
+        <div className="w-full py-16 border-t-4 border-b-4 border-opacity-50 border-indigo-900">
+          <h1 className="mb-4 text-3xl font-extrabold font-serif tracking-tight text-black md:text-5xl dark:text-white">
+            {frontMatter.title}
+          </h1>
+          <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center ">
+            <div className="flex items-center">
+              <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                {'Lucas Homer / '}
+                {format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
+              </p>
+            </div>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
+              {frontMatter.readingTime.text}
+              {` • `}
             </p>
           </div>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
-            {frontMatter.readingTime.text}
-            {` • `}
-          </p>
         </div>
-        <div className="w-full mt-4 prose prose-lg dark:prose-dark max-w-none">
+        <div className="w-full mt-4 prose prose-lg dark:prose-dark max-w-none ">
           {children}
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300">
