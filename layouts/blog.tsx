@@ -26,7 +26,7 @@ export default function BlogLayout({ children, frontMatter }) {
         priority
         src={frontMatter.image}
       />
-      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
+      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16 px-8 sm:px-0">
         <div className="w-full py-16 border-t-4 border-b-4 border-opacity-50 border-gray-600 dark:border-gray-300">
           <h1 className="mb-4 text-3xl font-extrabold font-serif tracking-tight text-black md:text-5xl dark:text-white">
             {frontMatter.title}

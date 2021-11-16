@@ -37,7 +37,7 @@ export default function Header({}: Props): ReactElement {
   React.useEffect(() => setMounted(true), []);
 
   return (
-    <header className="flex flex-col justify-center px-8 bg-gray-0 dark:bg-gray-900">
+    <header className="flex flex-col justify-center px-8 sm:px-0 bg-gray-0 dark:bg-gray-900">
       <nav className="flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-8  text-gray-900 dark:text-gray-100 bg-opacity-60">
         <a href="#skip" className="skip-nav">
           Skip to content
