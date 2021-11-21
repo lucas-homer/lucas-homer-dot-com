@@ -2,27 +2,29 @@
 import Link from 'next/link';
 
 import Container from '../components/Container';
-// import BlogPostCard from '../components/BlogPostCard';
+// import styles from 'styles/Home.module.css';
+// import BlogPostCard from '../components/BlogPost';
 // import Subscribe from '../components/Subscribe';
 
 export default function Home() {
   return (
     <Container>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0 pb-16">
-        <div className="flex flex-col-reverse sm:flex-row items-start">
-          <div className="flex flex-col pr-8">
-            <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
+        <div>
+          <div className="flex flex-col">
+            {/* TODO -- animate a box outline with the below text inside */}
+            {/* <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
               Lucas Homer
             </h1>
             <h2 className="text-gray-700 dark:text-gray-200 mb-4">
               Application Development Supervisor at{' '}
               <span className="font-semibold">SelectQuote</span>
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-16">
-              Hey, I’m Lucas. I like learning and building things with code, and
-              I like writing about it and sharing. <br />
+            </h2> */}
+            <p className="text-gray-600 dark:text-gray-400 my-16 text-lg text-center">
+              <strong>Hey, I’m Lucas.</strong> I like learning, building things
+              with code, and writing, in no particular order. <br />
               <br />
-              Most of the time it’s about code, but sometimes it’s more than
+              Mostly I write about about code, but sometimes it’s more than
               that.
             </p>
           </div>
