@@ -31,7 +31,7 @@ export default function Footer() {
   return (
     <footer className="flex flex-col justify-center bg-gray-900 dark:bg-gray-0 px-8 sm:px-0">
       <div className="w-full relative max-w-2xl mx-auto">
-        <div className="w-full p-10 bg-gray-50 dark:bg-gray-800">
+        <div className="w-full p-10 bg-gray-100 dark:bg-gray-800">
           <h2 className="text-3xl text-black dark:text-gray-100">
             Keep in touch
           </h2>
