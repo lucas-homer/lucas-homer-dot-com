@@ -1,12 +1,16 @@
-export enum Form {
-  Initial,
-  Loading,
-  Success,
-  Error
-}
+export type UnionFromKeys<T> = T[keyof T];
+
+export const FormStatuses = {
+  Initial: 'Initial',
+  Loading: 'Loading',
+  Success: 'Success',
+  Error: 'Error'
+} as const;
+
+export type FormStatus = UnionFromKeys<typeof FormStatuses>;
 
 export type FormState = {
-  state: Form;
+  status: FormStatus;
   message?: string;
 };
 

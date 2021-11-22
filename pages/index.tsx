@@ -1,15 +1,23 @@
 // import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRightIcon } from '@heroicons/react/solid';
 
 import Container from '../components/Container';
 // import styles from 'styles/Home.module.css';
 // import BlogPostCard from '../components/BlogPost';
 // import Subscribe from '../components/Subscribe';
-
+/**
+ *
+ * TODO:
+ * "Get to know me"
+ * - add arrow icon (or content="->") and animate hover
+ *
+ *
+ */
 export default function Home() {
   return (
     <Container>
-      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0 pb-16">
+      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0">
         <div>
           <div className="flex flex-col">
             {/* TODO -- animate a box outline with the below text inside */}
@@ -70,7 +78,17 @@ export default function Home() {
         </Link>
 
         <span className="h-16" />
-        {/* <Subscribe /> */}
+        <div className="w-full p-10 bg-blue-600">
+          <h2 className="text-3xl text-white">Get to know me</h2>
+          <p className="text-gray-200 my-2.5 font-serif text-lg">
+            Visit the bio page to get the spiel and get in touch.
+          </p>
+          <Link href="/about" passHref>
+            <a className="tracking-widest font-sans text-white underline">
+              BIO
+            </a>
+          </Link>
+        </div>
       </div>
     </Container>
   );
