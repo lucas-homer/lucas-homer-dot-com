@@ -1,6 +1,6 @@
 // import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRightIcon } from '@heroicons/react/solid';
+// import { ArrowRightIcon } from '@heroicons/react/solid';
 
 import Container from '../components/Container';
 // import styles from 'styles/Home.module.css';
@@ -78,17 +78,6 @@ export default function Home() {
         </Link>
 
         <span className="h-16" />
-        <div className="w-full p-10 bg-blue-600">
-          <h2 className="text-3xl text-white">Get to know me</h2>
-          <p className="text-gray-200 my-2.5 font-serif text-lg">
-            Visit the bio page to get the spiel and get in touch.
-          </p>
-          <Link href="/about" passHref>
-            <a className="tracking-widest font-sans text-white underline">
-              BIO
-            </a>
-          </Link>
-        </div>
       </div>
     </Container>
   );

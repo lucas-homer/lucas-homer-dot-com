@@ -4,6 +4,9 @@ import { PropsWithChildren } from 'react';
 
 import Footer from 'components/Footer';
 import Header from './Header';
+import BioPagePrompt from './BioPagePrompt';
+import NewsletterSubscribe from './NewsletterSubscribe';
+import ExploreTopics from './ExploreTopics';
 
 type ContainerProps = Partial<{
   title: string;
@@ -54,8 +57,16 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
         id="skip"
         className="flex flex-col justify-center bg-gray-100 dark:bg-gray-800"
       >
+        {/* TODO -- this should comprise: main content of the page + any of the following in this order -- the get-to-know-me box, the newsletter box, and the topics box */}
         {children}
       </main>
+      <aside className="flex flex-col justify-center bg-gray-100 dark:bg-gray-800">
+        <BioPagePrompt />
+      </aside>
+      <aside className="flex flex-col justify-center bg-gray-700 dark:bg-gray-200">
+        <NewsletterSubscribe />
+        <ExploreTopics />
+      </aside>
       <Footer />
     </div>
   );

@@ -1,8 +1,8 @@
+import type { InferGetStaticPropsType } from 'next';
+
 import Container from 'components/Container';
 import NoteCard from 'components/NoteCard';
 import { getAllFilesFrontMatter } from 'lib/mdx';
-import { pick } from 'lib/utils';
-import type { InferGetStaticPropsType } from 'next';
 
 export default function Notes({
   notes
@@ -12,7 +12,7 @@ export default function Notes({
       title="Notes"
       description="A collection of code notes, interesting resources on a topic, and other odds and ends."
     >
-      <div className="flex flex-col items-start justify-center max-w-2xl mx-auto px-8 sm:px-0 mb-16">
+      <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto px-8 sm:px-0 mb-16">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Notes
         </h1>
