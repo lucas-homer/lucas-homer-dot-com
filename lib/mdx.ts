@@ -3,12 +3,13 @@ import { readFileSync, readdirSync } from 'fs';
 import { bundleMDX } from 'mdx-bundler';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
-
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
+
+import { Frontmatter } from 'lib/types';
 
 export async function getFiles(type) {
   return readdirSync(join(process.cwd(), 'data', type));
@@ -47,11 +48,11 @@ export async function getFileBySlug(type, slug?) {
       readingTime: readingTime(source),
       slug: slug || null,
       ...frontmatter
-    }
+    } as Frontmatter
   };
 }
 
-export async function getAllFilesFrontMatter(type) {
+export async function getAllFilesFrontMatter(type: 'blog' | 'notes') {
   const files = readdirSync(join(process.cwd(), 'data', type));
 
   return files.reduce((allPosts, postSlug) => {
@@ -69,4 +70,46 @@ export async function getAllFilesFrontMatter(type) {
       ...allPosts
     ];
   }, []);
+}
+
+function buildTopicsObject(
+  frontMatterData: Array<Frontmatter>
+): Record<string, number> | {} {
+  /**
+   * loop over list of frontmatter objects, and loop over each object's topics list,
+   * and if the topic already exists in the master list, add 1 to the count,
+   * and if not, create new topic in master list with count = 1
+   */
+  return frontMatterData.reduce((masterTopicsObj, contentItem) => {
+    const hasTopics = contentItem?.topics?.length;
+    if (!hasTopics) {
+      return masterTopicsObj;
+    }
+
+    contentItem.topics.forEach((topic) => {
+      if (masterTopicsObj[topic]) {
+        masterTopicsObj = {
+          ...masterTopicsObj,
+          [topic]: masterTopicsObj[topic] + 1
+        };
+        return;
+      }
+
+      masterTopicsObj = {
+        ...masterTopicsObj,
+        [topic]: 1
+      };
+    });
+
+    return masterTopicsObj;
+  }, {});
+}
+
+export async function getTopics() {
+  const notes = await getAllFilesFrontMatter('notes');
+  const posts = await getAllFilesFrontMatter('blog');
+
+  const aggregatedTopics = buildTopicsObject([...notes, ...posts]);
+
+  return Object.entries(aggregatedTopics);
 }

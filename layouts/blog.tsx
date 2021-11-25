@@ -10,7 +10,7 @@ const discussUrl = (slug) =>
     `https://lucashomer.com/blog/${slug}`
   )}`;
 
-export default function BlogLayout({ children, frontMatter }) {
+export default function BlogLayout({ children, topicsData, frontMatter }) {
   return (
     <Container
       title={`${frontMatter.title} – Lucas Homer`}
@@ -18,6 +18,7 @@ export default function BlogLayout({ children, frontMatter }) {
       image={`https://lucashomer.com${frontMatter.image}`}
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
+      topicsData={topicsData}
     >
       <Image
         alt={`Hero image - ${frontMatter.title}`}

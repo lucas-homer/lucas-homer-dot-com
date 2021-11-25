@@ -1,3 +1,5 @@
+import { ReadTimeResults } from 'reading-time';
+
 export type UnionFromKeys<T> = T[keyof T];
 
 export const FormStatuses = {
@@ -12,6 +14,17 @@ export type FormStatus = UnionFromKeys<typeof FormStatuses>;
 export type FormState = {
   status: FormStatus;
   message?: string;
+};
+
+export type Frontmatter = {
+  wordCount: number;
+  readingTime: ReadTimeResults;
+  slug: any | null;
+  title?: string;
+  publishedAt?: string;
+  summary?: string;
+  image?: string;
+  topics?: Array<string>;
 };
 
 export type Subscribers = {
@@ -39,22 +52,4 @@ export type NowPlayingSong = {
 
 export type TopTracks = {
   tracks: Song[];
-};
-
-export type YouTube = {
-  subscriberCount: number;
-  viewCount: number;
-};
-
-export type GitHub = {
-  stars: number;
-};
-
-export type Gumroad = {
-  sales: number;
-};
-
-export type Unsplash = {
-  downloads: number;
-  views: number;
 };

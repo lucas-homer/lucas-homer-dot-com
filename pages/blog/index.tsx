@@ -3,10 +3,11 @@ import { useState } from 'react';
 import Container from 'components/Container';
 import BlogPost from 'components/BlogPostPreview';
 import { InferGetStaticPropsType } from 'next';
-import { getAllFilesFrontMatter } from 'lib/mdx';
+import { getAllFilesFrontMatter, getTopics } from 'lib/mdx';
 
 export default function Blog({
-  posts
+  posts,
+  topicsData
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [searchValue, setSearchValue] = useState('');
   const filteredBlogPosts = posts
@@ -19,7 +20,11 @@ export default function Blog({
     );
 
   return (
-    <Container title="Blog – Lucas Homer" description=".">
+    <Container
+      title="Blog – Lucas Homer"
+      description="."
+      topicsData={topicsData}
+    >
       <div className="flex flex-col justify-center items-start w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Blog
@@ -87,6 +92,7 @@ export default function Blog({
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog');
+  const topicsData = await getTopics();
 
-  return { props: { posts } };
+  return { props: { posts, topicsData } };
 }

@@ -3,13 +3,13 @@ import { getMDXComponent } from 'mdx-bundler/client';
 import components from 'components/MDXComponents';
 import NoteLayout from 'layouts/note';
 import { GetStaticPropsContext } from 'next';
-import { getFileBySlug, getFiles } from 'lib/mdx';
+import { getFileBySlug, getFiles, getTopics } from 'lib/mdx';
 
-export default function Note({ note }) {
+export default function Note({ note, topicsData }) {
   const Component = useMemo(() => getMDXComponent(note.code), [note.code]);
 
   return (
-    <NoteLayout frontMatter={note.frontMatter}>
+    <NoteLayout topicsData={topicsData} frontMatter={note.frontMatter}>
       <Component components={components as any} />
     </NoteLayout>
   );
@@ -28,6 +28,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const note = await getFileBySlug('notes', params.slug);
+  const topicsData = await getTopics();
 
-  return { props: { note } };
+  return { props: { note, topicsData } };
 }

@@ -14,10 +14,10 @@ type ContainerProps = Partial<{
   image: string;
   date: string;
   type: 'article' | 'note' | 'website';
-}>;
+}> & { topicsData: Array<[string, number]> };
 
 export default function Container(props: PropsWithChildren<ContainerProps>) {
-  const { children, ...customMeta } = props;
+  const { children, topicsData, ...customMeta } = props;
   const router = useRouter();
   const meta = {
     title: 'Lucas Homer – Developer, tinkerer, creator.',
@@ -65,7 +65,7 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
       </aside>
       <aside className="flex flex-col justify-center bg-gray-700 dark:bg-gray-200">
         <NewsletterSubscribe />
-        <ExploreTopics />
+        <ExploreTopics topicsData={topicsData} />
       </aside>
       <Footer />
     </div>

@@ -2,13 +2,15 @@ import type { InferGetStaticPropsType } from 'next';
 
 import Container from 'components/Container';
 import NoteCard from 'components/NoteCard';
-import { getAllFilesFrontMatter } from 'lib/mdx';
+import { getAllFilesFrontMatter, getTopics } from 'lib/mdx';
 
 export default function Notes({
-  notes
+  notes,
+  topicsData
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Container
+      topicsData={topicsData}
       title="Notes"
       description="A collection of code notes, interesting resources on a topic, and other odds and ends."
     >
@@ -37,6 +39,7 @@ export default function Notes({
 
 export async function getStaticProps() {
   const notes = await getAllFilesFrontMatter('notes');
+  const topicsData = await getTopics();
 
-  return { props: { notes } };
+  return { props: { notes, topicsData } };
 }

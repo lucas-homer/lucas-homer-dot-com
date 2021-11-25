@@ -1,10 +1,11 @@
 import Container from 'components/Container';
 
-export default function NoteLayout({ children, frontMatter }) {
+export default function NoteLayout({ children, topicsData, frontMatter }) {
   return (
     <Container
       title={`${frontMatter.title} - Code Note`}
       description="A collection of code frontMatters, interesting resources on a topic, and other odds and ends."
+      topicsData={topicsData}
     >
       <article className="flex flex-col justify-center items-start w-full max-w-2xl mx-auto mb-16 px-8 sm:px-0">
         <div className="flex justify-between w-full mb-8">

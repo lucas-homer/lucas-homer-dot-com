@@ -1,4 +1,5 @@
 // import Image from 'next/image';
+import { getTopics } from 'lib/mdx';
 import Link from 'next/link';
 // import { ArrowRightIcon } from '@heroicons/react/solid';
 
@@ -14,9 +15,10 @@ import Container from '../components/Container';
  *
  *
  */
-export default function Home() {
+
+export default function Home({ topicsData }) {
   return (
-    <Container>
+    <Container topicsData={topicsData}>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0">
         <div>
           <div className="flex flex-col">
@@ -81,4 +83,10 @@ export default function Home() {
       </div>
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  const topicsData = await getTopics();
+
+  return { props: { topicsData } };
 }

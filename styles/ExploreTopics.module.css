@@ -1,0 +1,17 @@
+.topicListItem:hover {
+  border-color: #2563eb;
+  transition-property: border-color, color;
+  transition-duration: 0.15s;
+}
+
+.topicListItem:hover span {
+  color: #2563eb;
+  border-color: #2563eb;
+  transition-property: border-color, color;
+  transition-duration: 0.15s;
+}
+
+.topicListItem:hover h1 {
+  border-color: #2563eb;
+  transition: border-color 0.15s;
+}
