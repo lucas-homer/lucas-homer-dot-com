@@ -10,6 +10,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 
 import { Frontmatter } from 'lib/types';
+import { frontmatterHasTopic } from './utils';
 
 export async function getFiles(type) {
   return readdirSync(join(process.cwd(), 'data', type));
@@ -112,4 +113,23 @@ export async function getTopics() {
   const aggregatedTopics = buildTopicsObject([...notes, ...posts]);
 
   return Object.entries(aggregatedTopics);
+}
+
+export async function getContentByTopic(topicName: string) {
+  const notes = await getAllFilesFrontMatter('notes');
+  const posts = await getAllFilesFrontMatter('blog');
+
+  const relevantNotes = notes.filter((note) =>
+    frontmatterHasTopic(note, topicName)
+  );
+  const relevantPosts = posts.filter((post) =>
+    frontmatterHasTopic(post, topicName)
+  );
+
+  const contentWithTopic = {
+    notes: relevantNotes,
+    blog: relevantPosts
+  };
+
+  return contentWithTopic;
 }

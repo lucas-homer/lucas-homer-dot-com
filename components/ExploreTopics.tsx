@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 import Link from 'next/link';
+
+import { convertToSlug } from 'lib/utils';
 import styles from 'styles/ExploreTopics.module.css';
 interface Props {
   topicsData: Array<[string, number]>;
@@ -15,7 +17,7 @@ export default function ExploreTopics({ topicsData }: Props): ReactElement {
       <ul className="flex flex-wrap w-full justify-center mb-24">
         {topicsData.map(([topic, count]) => (
           <li key={topic} className="m-4">
-            <Link href="/">
+            <Link href={`/topics/${convertToSlug(topic)}`}>
               <a
                 className={`border-solid border-2 border-gray-400 hover:cursor-pointer dark:border-gray-500 flex flex-nowrap items-center ${styles.topicListItem}`}
               >
