@@ -19,7 +19,7 @@ export default function ExploreTopics({ topicsData }: Props): ReactElement {
           <li key={topic} className="m-4">
             <Link href={`/topics/${convertToSlug(topic)}`}>
               <a
-                className={`border-solid border-2 border-gray-400 hover:cursor-pointer dark:border-gray-500 flex flex-nowrap items-center ${styles.topicListItem}`}
+                className={`border-solid border-2 border-gray-400 rounded hover:cursor-pointer dark:border-gray-500 flex flex-nowrap items-center ${styles.topicListItem}`}
               >
                 <span className="px-5 py-3 text-2xl text-gray-400 dark:text-gray-500">
                   {count}

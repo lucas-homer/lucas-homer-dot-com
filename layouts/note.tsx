@@ -6,8 +6,9 @@ export default function NoteLayout({ children, topicsData, frontMatter }) {
       title={`${frontMatter.title} - Code Note`}
       description="A collection of code frontMatters, interesting resources on a topic, and other odds and ends."
       topicsData={topicsData}
+      date={new Date(frontMatter.lastUpdated).toISOString()}
     >
-      <article className="flex flex-col justify-center items-start w-full max-w-2xl mx-auto mb-16 px-8 sm:px-0">
+      <article className="flex flex-col justify-center items-start w-full max-w-2xl mx-auto mb-16 px-8 sm:px-0 pt-12">
         <div className="flex justify-between w-full mb-8">
           <div>
             <h1 className="font-extrabold font-serif text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">

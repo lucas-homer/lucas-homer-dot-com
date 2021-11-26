@@ -22,6 +22,7 @@ export type Frontmatter = {
   slug: any | null;
   title?: string;
   publishedAt?: string;
+  lastUpdated?: string;
   summary?: string;
   image?: string;
   topics?: Array<string>;

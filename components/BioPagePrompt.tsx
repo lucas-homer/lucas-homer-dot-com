@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import Link from 'next/link';
+import styles from 'styles/BioPagePrompt.module.css';
 
 export default function BioPagePrompt(): ReactElement {
   return (
@@ -10,7 +11,11 @@ export default function BioPagePrompt(): ReactElement {
           Visit the bio page to get the spiel and get in touch.
         </p>
         <Link href="/about" passHref>
-          <a className="tracking-widest font-sans text-white underline">BIO</a>
+          <a
+            className={`uppercase tracking-widest font-sans text-white inline pb-1 ${styles.link}`}
+          >
+            Bio
+          </a>
         </Link>
       </div>
     </div>

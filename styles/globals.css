@@ -204,6 +204,16 @@ html {
   font-family: 'Lato';
 }
 
+/* TODO -- maybe we need a better fat serif font? Seems it's the primary use case for the contrast/secondary font */
+.prose h1,
+.prose h2 {
+  font-family: 'PlayfairDisplay';
+}
+
+.prose h1 {
+  @apply font-extrabold;
+}
+
 .prose .anchor {
   @apply absolute invisible;
 
