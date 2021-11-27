@@ -29,6 +29,7 @@ export default function Topic({ topicName, contentWithTopic, topicsData }) {
               title={note.title}
               slug={note.slug}
               description={note.description}
+              lastUpdated={note.lastUpdated}
             />
           ))}
         </div>
