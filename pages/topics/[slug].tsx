@@ -15,7 +15,7 @@ export default function Topic({ topicName, contentWithTopic, topicsData }) {
       description={`Notes and Blog posts relevant to: ${topicName}`}
       topicsData={topicsData}
     >
-      <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto pt-8 mb-16">
+      <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto px-8 sm:px-0 mt-16 mb-32">
         <h3 className="mb-2 text-gray-900 text-xl dark:text-gray-100">TOPIC</h3>
         <h2 className="mb-4 text-gray-900 text-4xl dark:text-gray-100">{`${topicName} (${totalCount})`}</h2>
         {/* <p className="mb-4 text-gray-600 dark:text-gray-400">
