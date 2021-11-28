@@ -8,7 +8,7 @@ export default function NoteCard({ title, description, lastUpdated, slug }) {
 
   return (
     <Link href={`/notes/${slug}`}>
-      <a className="border-2 border-grey-200 dark:border-gray-800 rounded p-4 w-full bg-white dark:bg-gray-900 hover:border-blue-600 dark:hover:border-blue-600 transition">
+      <a className="w-full bg-gray-100 dark:bg-gray-800 pt-4 border-t-4 border-gray-800 dark:border-gray-100 hover:border-blue-600 hover:dark:border-blue-600">
         <h4
           className={`tracking-widest uppercase text-sm inline pb-2 ${
             resolvedTheme === 'dark' ? styles.darkDate : styles.date
@@ -19,7 +19,7 @@ export default function NoteCard({ title, description, lastUpdated, slug }) {
         <h3 className="text-3xl font-semibold text-left mt-4 text-gray-900 dark:text-gray-100">
           {title}
         </h3>
-        <p className="mt-1 prose prose-lg text-gray-700 dark:text-gray-400">
+        <p className="mt-1 font-serif text-lg text-gray-500 dark:text-gray-300">
           {description}
         </p>
       </a>
