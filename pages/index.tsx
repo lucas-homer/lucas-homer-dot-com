@@ -19,7 +19,7 @@ import Container from '../components/Container';
 export default function Home({ topicsData }) {
   return (
     <Container topicsData={topicsData}>
-      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto px-8 sm:px-0">
+      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto mb-32 px-8 sm:px-0">
         <div>
           <div className="flex flex-col">
             {/* TODO -- animate a box outline with the below text inside */}

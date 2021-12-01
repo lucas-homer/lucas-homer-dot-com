@@ -12,13 +12,13 @@ export default function Notes({
     <Container
       topicsData={topicsData}
       title="Notes"
-      description="A collection of code notes, interesting resources on a topic, and other odds and ends."
+      description="A collection of code notes, links, resources, and other odds and ends."
     >
       <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto px-8 sm:px-0 mt-16 mb-32">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Notes
         </h1>
-        <p className="mb-4 text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-gray-600 dark:text-gray-400 text-lg">
           A collection of code notes, interesting resources on a topic, and
           other odds and ends.
         </p>
