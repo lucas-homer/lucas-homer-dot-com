@@ -29,21 +29,24 @@ export default function BlogLayout({ children, topicsData, frontMatter }) {
       />
       <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-32 px-8 sm:px-0">
         <div className="w-full py-16 border-t-4 border-b-4 border-opacity-50 border-gray-600 dark:border-gray-300">
-          <h1 className="mb-4 text-3xl font-extrabold font-serif tracking-tight text-black md:text-5xl dark:text-white">
-            {frontMatter.title}
-          </h1>
           <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center ">
             <div className="flex items-center">
-              <p className="text-sm text-gray-700 dark:text-gray-300">
+              <p className="text-gray-700 dark:text-gray-300">
                 {'Lucas Homer / '}
                 {format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
               </p>
             </div>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
+            <p className="mt-2 text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
               {frontMatter.readingTime.text}
               {` • `}
             </p>
           </div>
+          <h1 className="mb-4 mt-8 text-5xl font-serif font-black tracking-tight text-black md:text-5xl dark:text-white">
+            {frontMatter.title}
+          </h1>
+          <p className="mt-1 font-sans text-xl leading-relaxed text-gray-500 dark:text-gray-300">
+            {frontMatter.summary}
+          </p>
         </div>
         <div className="w-full mt-4 prose prose-lg dark:prose-dark max-w-none ">
           {children}
