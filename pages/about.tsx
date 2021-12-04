@@ -49,11 +49,11 @@ export default function Notes({
           over time turn into more fully formed blog posts.
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
-          Outside of extending tenuous metaphors, I also love to spend time
-          outdoors, hiking and trail running. I'm also an avid cook, and love
-          exploring the embarrassment of riches that is California's food and
-          wine scene. A native Midwesterner, I'm originally from Kansas City,
-          and hold undergraduate and law degrees from the University of Kansas.
+          Outside of extending tenuous metaphors, I love to spend time outdoors,
+          hiking and trail running. I'm also an avid cook, and love exploring
+          the embarrassment of riches that is California's food and wine scene.
+          A native Midwesterner, I'm originally from Kansas City, and hold
+          undergraduate and law degrees from the University of Kansas.
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
           After several years working in litigation, I switched gears to
