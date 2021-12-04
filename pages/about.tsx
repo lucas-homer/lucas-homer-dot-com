@@ -18,17 +18,17 @@ export default function Notes({
           About Me
         </h1>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
-          Hey hey! I'm Lucas. I'm a developer, and you've made it all the way to
-          my humble web home. Thanks for visiting. I hope you stay a while!
+          {`Hey hey! I'm Lucas. I'm a developer, and you've made it all the way to
+          my humble web home. Thanks for visiting. I hope you stay a while!`}
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
           At my job at SelectQuote, where we follow{' '}
           <a href="https://engineering.atspotify.com/2014/03/27/spotify-engineering-culture-part-1/">
             the Spotify model
           </a>
-          , I started using our frontend chapter meetings (think "brown bag" or
+          {`, I started using our frontend chapter meetings (think "brown bag" or
           "knowledge transfer") as a vehicle to learn by teaching. It's been a
-          boon for myself and others involved, but I want to do more, and{' '}
+          boon for myself and others involved, but I want to do more, and`}{' '}
           <a href="https://www.swyx.io/learn-in-public/">learn in public</a>.
           How about the open web, then?
         </p>
@@ -49,26 +49,27 @@ export default function Notes({
           over time turn into more fully formed blog posts.
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
-          Outside of extending tenuous metaphors, I love to spend time outdoors,
+          {`Outside of extending tenuous metaphors, I love to spend time outdoors,
           hiking and trail running. I'm also an avid cook, and love exploring
           the embarrassment of riches that is California's food and wine scene.
           A native Midwesterner, I'm originally from Kansas City, and hold
-          undergraduate and law degrees from the University of Kansas.
+          undergraduate and law degrees from the University of Kansas.`}
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
           After several years working in litigation, I switched gears to
           software, completing the{' '}
           <a href="https://launchcode.org">Launchcode</a> LC101 and
-          Apprenticeship programs. Whether it's music, statutes, or code, it's
+          {`Apprenticeship programs. Whether it's music, statutes, or code, it's
           all language and patterns to me. Among other reasons, I especially
           love software because I get that perfect mix of creativity and
-          analysis.
+          analysis.`}
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
-          Want to chat? Don't be a stranger.{' '}
+          {`Want to chat? Don't be a stranger.`}{' '}
           <a href="https://twitter.com/lucas_c_homer">Tweet at me</a> or{' '}
-          <a href="mailto:lucas.homer@hey.com">send me an email</a>. I'd love to
-          hear from you.
+          <a href="mailto:lucas.homer@hey.com">send me an email</a>
+          {`. I'd love to
+          hear from you.`}
         </p>
       </div>
     </Container>
