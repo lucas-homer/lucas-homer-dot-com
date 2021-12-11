@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document(props: any) {
   return (
@@ -74,12 +74,7 @@ export default function Document(props: any) {
           type="font/ttf"
           crossOrigin="anonymous"
         />
-        <link href="/static/favicon.ico" rel="shortcut icon" />
-        {/* <link
-          rel="preconnect"
-          href="https://cdn.usefathom.com"
-          crossOrigin=""
-        />
+        <link href="/favicons/favicon-journal-emoji.ico" rel="shortcut icon" />
         <link
           href="/static/favicons/apple-touch-icon.png"
           rel="apple-touch-icon"
@@ -101,18 +96,9 @@ export default function Document(props: any) {
           color="#4a9885"
           href="/static/favicons/safari-pinned-tab.svg"
           rel="mask-icon"
-        /> */}
+        />
         <meta content="#ffffff" name="theme-color" />
         <meta content="#ffffff" name="msapplication-TileColor" />
-        {/* <meta
-          content="/static/favicons/browserconfig.xml"
-          name="msapplication-config"
-        />
-        <meta content="14d2e73487fa6c71" name="yandex-verification" />
-        <meta
-          content="eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw"
-          name="google-site-verification"
-        /> */}
       </Head>
       <body className="bg-white dark:bg-black text-black dark:text-white">
         <Main />
