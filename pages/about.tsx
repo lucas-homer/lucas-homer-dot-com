@@ -22,7 +22,11 @@ export default function Notes({
           my humble web home. Thanks for visiting. I hope you stay a while!`}
         </p>
         <p className="text-gray-600 dark:text-gray-300 prose prose-lg">
-          At my job at SelectQuote, where we follow{' '}
+          At{' '}
+          <a href="https://linkedin.com/in/lucas-homer">
+            my job at SelectQuote
+          </a>
+          , where we follow{' '}
           <a href="https://engineering.atspotify.com/2014/03/27/spotify-engineering-culture-part-1/">
             the Spotify model
           </a>
