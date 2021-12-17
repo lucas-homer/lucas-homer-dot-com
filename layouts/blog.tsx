@@ -48,10 +48,10 @@ export default function BlogLayout({ children, topicsData, frontMatter }) {
             {frontMatter.summary}
           </p>
         </div>
-        <div className="w-full mt-4 prose prose-lg dark:prose-dark max-w-none ">
+        <div className="w-full my-4 prose prose-lg dark:prose-dark max-w-none ">
           {children}
         </div>
-        <div className="text-sm text-gray-700 dark:text-gray-300">
+        <div className="text-sm text-gray-700 dark:text-gray-300 flex flex-row w-full gap-4 justify-end">
           <a
             href={discussUrl(frontMatter.slug)}
             target="_blank"
@@ -59,7 +59,7 @@ export default function BlogLayout({ children, topicsData, frontMatter }) {
           >
             {'Discuss on Twitter'}
           </a>
-          {` • `}
+          {` | `}
           <a
             href={editUrl(frontMatter.slug)}
             target="_blank"

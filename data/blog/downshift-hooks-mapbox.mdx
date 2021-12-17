@@ -1,0 +1,289 @@
+---
+title: 'Downshift + Hooks + Mapbox'
+publishedAt: '2020-02-03'
+summary: 'Build Your Own Mapbox Geocoder'
+image: '/images/sutro-tower.jpg'
+imageAlt: 'Sutro Tower piercing through the San Francisco fog'
+topics: ['Hooks', 'Mapbox', 'Downshift']
+---
+
+Recent work on a civic hacking team has me building an application that, among other things, needs a geocoding autocomplete component. The basic use case is this: The user starts typing an address or place of interest, and the component fires off requests to the [Mapbox Geocoding API](https://docs.mapbox.com/api/search/#geocoding), then renders the results array in a list of selectable items. They can then clear the selection too.
+
+Our team uses the Mapbox API elsewhere in the project, so I already have an API key for that service. Rather than using Mapbox's JS library -- [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/) -- or the React-wrapped version -- [react-map-gl-geocoder](https://github.com/SamSamskies/react-map-gl-geocoder) -- I wanted to build something quickly and I wanted to start with minimal styling at all. [Downshift](https://github.com/downshift-js/downshift) ([codesandbox examples that proved handy](https://codesandbox.io/s/github/kentcdodds/downshift-examples) does the heavy lifting for autocomplete and combobox logic and React hooks, and we can pretty quickly whip something up that works well.
+
+## useMapboxGeocoder
+
+First we’re going to build the custom hook to manage the mapbox api stateful logic. The idea is to colocate all the fetching and state logic related to the Mapbox API. Then in the component where we use Downshift, we can consume this hook like so:
+
+```jsx
+// in Search.js
+const [{ loading, error, data }, fetchMapboxResults] = useMapboxGeocoder();
+```
+
+Back in `useMapboxGeocoder.js`, I set up initial state, our reducer, and some other odds and ends. If you know the state reducer pattern, you’ll recognize this:
+
+```javascript
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const baseUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places`;
+
+const initialState = {
+  isLoading: false,
+  error: false,
+  data: []
+};
+
+const actionTypes = {
+  FETCH_REQUEST: 'FETCH_REQUEST',
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
+  FETCH_FAILURE: 'FETCH_FAILURE'
+};
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case actionTypes.FETCH_REQUEST:
+      return { ...state, isLoading: true };
+    case actionTypes.FETCH_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        isLoading: false,
+        data: action.results
+      };
+    case actionTypes.FETCH_FAILURE:
+      console.log(action.error);
+      return { ...state, isLoading: false, error: true };
+    default:
+      return state;
+  }
+}
+```
+
+Great, now we can write the hook we’ll export, and plug in all those pieces into the useReducer:
+
+```javascript
+export function useMapboxGeocoder() {
+  const [{ data, error, isLoading }, dispatch] = React.useReducer(
+    reducer,
+    initialState
+  );
+
+  // TODO: fetchMapboxResults()
+
+  return { data, error, isLoading };
+}
+```
+
+Finally, we need to write the fetch handler, `fetchMapboxResults` and include it in the object the `useMapboxGeocoder` function returns. All together now:
+
+```jsx
+// useMapboxGeocoder.js
+import React from 'react';
+import axios from 'axios';
+import debounce from 'debounce-fn';
+
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const baseUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places`;
+
+const initialState = {
+  isLoading: false,
+  error: false,
+  data: []
+};
+
+const actionTypes = {
+  FETCH_REQUEST: 'FETCH_REQUEST',
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
+  FETCH_FAILURE: 'FETCH_FAILURE'
+};
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case actionTypes.FETCH_REQUEST:
+      return { ...state, isLoading: true };
+    case actionTypes.FETCH_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        isLoading: false,
+        data: action.results
+      };
+    case actionTypes.FETCH_FAILURE:
+      console.log(action.error);
+      return { ...state, isLoading: false, error: true };
+    default:
+      return state;
+  }
+}
+
+export function useMapboxGeocoder() {
+  const [{ isLoading, error, data }, dispatch] = React.useReducer(
+    reducer,
+    initialState
+  );
+
+  const fetchMapboxResults = debounce(
+    async (searchString) => {
+      const mapboxUrl = `${baseUrl}/${searchString}.json?access_token=${MAPBOX_TOKEN}`;
+
+      dispatch({ type: actionTypes.FETCH_REQUEST });
+      try {
+        const response = await axios.get(mapboxUrl);
+        dispatch({
+          type: actionTypes.FETCH_SUCCESS,
+          results: response.data.features
+        });
+      } catch (error) {
+        dispatch({ type: actionTypes.FETCH_FAILURE, error });
+      }
+    },
+    { wait: 300 }
+  );
+
+  return { error, isLoading, data, fetchMapboxResults };
+}
+```
+
+##
+
+## Search.js - Downshift Autocomplete/Combobox
+
+Now that we’ve implemented our custom hook, we can fold in our error, loading, and results variables, and write a couple simple handlers. As I’m really focused on the functionality for this post, I copypasta’d a few styles from the codesandbox examples, otherwise I’m skipping all the styling. Don’t @ me!
+
+The Search component utilizes our hook's data fetching function and state values, and we create a couple handler functions to feed to the Downshift component.
+
+```jsx
+// Search.js
+import React from 'react';
+import Downshift from 'downshift';
+import { useMapboxGeocoder } from './hooks/useMapboxGeocoder';
+
+export default function Search() {
+  const [selectedPlace, setSelectedPlace] = React.useState(null);
+  const {
+    error,
+    isLoading,
+    data: mapboxResults,
+    fetchMapboxResults
+  } = useMapboxGeocoder();
+
+  const handleInputChange = (event) => {
+    if (!event.target.value) {
+      return;
+    }
+    fetchMapboxResults(event.target.value);
+  };
+
+  const handleDownshiftOnChange = (selectedResult) => {
+    setSelectedPlace(selectedResult);
+  };
+
+  return (
+    <>
+      <Downshift
+        onChange={handleDownshiftOnChange}
+        itemToString={(item) => (item ? item.place_name : '')}
+      >
+        {({
+          selectedItem,
+          getInputProps,
+          getItemProps,
+          getLabelProps,
+          getMenuProps,
+          getToggleButtonProps,
+          clearSelection,
+          highlightedIndex,
+          isOpen,
+          inputValue
+        }) => {
+          return (
+            <div style={{ width: 250, margin: 'auto', position: 'relative' }}>
+              <label
+                style={{
+                  fontWeight: 'bold',
+                  display: 'block',
+                  marginBottom: 10
+                }}
+                {...getLabelProps()}
+              >
+                Search for a place
+              </label>{' '}
+              <div style={{ position: 'relative' }}>
+                <input
+                  {...getInputProps({
+                    placeholder: 'Name, address, etc...',
+                    onChange: handleInputChange
+                  })}
+                  style={{ width: 175 }}
+                />
+                {selectedItem ? (
+                  <button onClick={clearSelection} aria-label="clear selection">
+                    X
+                  </button>
+                ) : (
+                  <button {...getToggleButtonProps()}>Toggle</button>
+                )}
+              </div>
+              {isOpen && (
+                <ul
+                  style={{
+                    padding: 0,
+                    marginTop: 0,
+                    position: 'absolute',
+                    backgroundColor: 'white',
+                    width: '100%',
+                    maxHeight: '20rem',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    outline: '0',
+                    transition: 'opacity .1s ease',
+                    borderRadius: '0 0 .28571429rem .28571429rem',
+                    boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
+                    borderColor: '#96c8da',
+                    borderTopWidth: '0',
+                    borderRightWidth: 1,
+                    borderBottomWidth: 1,
+                    borderLeftWidth: 1,
+                    borderStyle: 'solid'
+                  }}
+                  {...getMenuProps({ isOpen })}
+                >
+                  {isLoading && <div disabled>Loading...</div>}
+
+                  {error && <div disabled>Error!</div>}
+
+                  {!isLoading && !error && !mapboxResults.length && (
+                    <div>No results returned</div>
+                  )}
+
+                  {inputValue &&
+                    mapboxResults.length > 0 &&
+                    mapboxResults.slice(0, 10).map((item, index) => (
+                      <div
+                        {...getItemProps({
+                          key: index,
+                          index,
+                          item,
+                          isActive: highlightedIndex === index,
+                          isSelected: selectedItem === item
+                        })}
+                        style={{
+                          backgroundColor:
+                            highlightedIndex === index ? 'lightgray' : 'white',
+                          fontWeight: selectedItem === item ? 'bold' : 'normal'
+                        }}
+                      >
+                        <p>{item.place_name}</p>
+                      </div>
+                    ))}
+                </ul>
+              )}
+            </div>
+          );
+        }}
+      </Downshift>
+    </>
+  );
+}
+```
+
+So we’ve set up a hook to handle our data fetching to the mapbox api, and we wrote a couple quick functions, but that’s basically it! I found the codesandbox examples to be incredibly helpful in getting the hang of Downshift, and I think I might make use of the useCombobox and useSelect hooks in a couple other areas of the same project where I built this little component.
