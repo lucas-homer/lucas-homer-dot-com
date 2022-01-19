@@ -22,7 +22,7 @@ export default function Container(props: PropsWithChildren<ContainerProps>) {
   const meta = {
     title: 'Lucas Homer – Developer, tinkerer, creator.',
     description: `Learning, building, writing things down.`,
-    image: 'https://leerob.io/static/images/banner.png', // TODO - REPLACE THIS!
+    image: 'https://lucashomer.com/images/elysian.jpg',
     type: 'website',
     ...customMeta
   };
