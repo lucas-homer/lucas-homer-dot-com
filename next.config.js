@@ -3,12 +3,6 @@
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
-  images: {
-    domains: [
-      'i.scdn.co', // Spotify Album Art
-      'pbs.twimg.com' // Twitter Profile Picture
-    ]
-  },
   async headers() {
     return [
       {
