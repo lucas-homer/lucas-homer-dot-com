@@ -1,0 +1,34 @@
+---
+title: 'New Website'
+publishedAt: '2022-01-21'
+summary: 'I rebuilt lucashomer.com and here are the details.'
+image: '/images/solimar-sands.jpg'
+imageAlt: 'Beach sand rippled from changing tides.'
+topics: ['Next.js', 'MDX']
+---
+
+Here’s a Tl;Dr of how I built this site — Clone [leerob.io](github.com/leerob/leerob.io), then reverse engineer a bunch of designs from [Increment.com](www.increment.com). That’s basically it. Thanks for reading!
+
+In all honesty, though, the point of this site isn’t to reinvent the wheel. It’s to make a space for me to learn in public. How better to start that than by picking some of my favorite websites? So yes, I will happily cop to the odd familiarity my little corner of the internet has in its look and feel to the aforementioned sites.
+
+Whether it’s a blog post or a note, I want to keep things light and fun. I want to enjoy my side projects and enjoy learning and I hope that reading this site’s content is just as enjoyable. There's an off chance I get the hang of this and maybe more people will find they learn from the content too. Having said that, let’s dig into what this site is made of.
+
+### leerob.io
+
+I don’t want it to look or feel exactly like his site, but when I already know I want to use [Next.js](nextjs.org), [Tailwind](tailwindcss.com), and [MDX](mdxjs.com), I could’ve hand-rolled those things and taken a bit longer, but this seemed a more efficient option. What can I say? Steal from the greats! Or in other words, [I’m borrowing creativity](https://www.swyx.io/tiago-forte-second-brain/#1-borrowed-creativity). He’s a Midwesterner too, so I’m biased.
+
+After cloning it, I started pulling out a fair amount of bells and whistles. I wanted to keep things simple for now. I noticed he recently switched from [mdx-bundler](https://github.com/kentcdodds/mdx-bundler) to [Contentlayer](contentlayer.dev), and while I definitely like what I see in the latter, I encountered some build errors and hiccups along the way. So I kept it simple and went back to mdx-bundler. I like working with [Prisma](prisma.io), though, so I’m going to keep my eye on Contentlayer, as it’s another project from Prisma’s founder, [Johannes Schickling](https://github.com/schickling).
+
+### Increment
+
+After stripping things down and setting up the content management, I started thinking about design. For this I chose to have some fun by doing a bit of a copycat exercise. I really enjoy [Increment](increment.com) magazine, a blog and print publication from [Stripe](stripe.com) (recently announced they’re winding it down! 😞 ). The content itself is top notch, but the content layout, typography, and details really appeal to me, so I started reverse engineering its look and feel.
+
+The exercise of mimicry reminds me a lot of my days in music school, transcribing solos of my favorite jazz musicians. The idea is to listen closely, play things back, get each note and stylistic detail, and the more solos you transcribe, the more characteristics you start to internalize into your own style. I intend to keep transcribing more of my favorite sites and applications, picking up details and tricks along the way. I expect this site to evolve as I repeat the exercise.
+
+### Buttondown
+
+You might notice I have a newsletter, which is powered by [Buttondown](buttondown.email). Maybe (probably definitely) that’s overkill since this site barely has any content, but I’m trying to manifest the content and subscribers, okay? Build the newsletter, and they will come. To keep things extra simple I stripped out Lee’s form submission code that targets a Next.js pages/api endpoint and used Buttondown’s example form that pops open a new tab. All I needed to do was add some styles (matching Increment’s look) and it was good to go.
+
+### Wrap up
+
+So that’s really it! Blog posts, notes to capture snippets, links, and anything else in that kind of short form catch-all category, and then a bit about myself and how to reach me. Keep things simple, mimic those I admire the most, dig into how they do things, and keep evolving and learning in public. Feel free to clone my repo now, start hacking, and on and on we go!

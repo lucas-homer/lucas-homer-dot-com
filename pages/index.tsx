@@ -74,7 +74,7 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  const featuredPost = await getFileBySlug('blog', 'downshift-hooks-mapbox');
+  const featuredPost = await getFileBySlug('blog', 'new-lucashomer-site');
   const secondaryPost = await getFileBySlug('blog', 'not-too-late');
   const tertiaryPost = await getFileBySlug('blog', 'downshift-hooks-mapbox');
   const topicsData = await getTopics();
