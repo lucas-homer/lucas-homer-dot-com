@@ -21,7 +21,8 @@ export default function BlogLayout({ children, topicsData, frontMatter }) {
       topicsData={topicsData}
     >
       <Image
-        alt={`Hero image - ${frontMatter.title}`}
+        title={frontMatter.imageCredit}
+        alt={`Hero image - ${frontMatter.imageAlt}`}
         height={600}
         width={1000}
         priority

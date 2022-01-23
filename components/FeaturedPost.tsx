@@ -6,13 +6,15 @@ import { useTheme } from 'next-themes';
 import styles from 'styles/FeaturedPost.module.css';
 
 export default function FeaturedPost({ frontMatter }) {
-  const { title, summary, slug, publishedAt, image, imageAlt } = frontMatter;
+  const { title, summary, slug, publishedAt, image, imageAlt, imageCredit } =
+    frontMatter;
   const { resolvedTheme } = useTheme();
 
   return (
     <Link href={`/blog/${slug}`}>
       <a className={`w-full bg-gray-100 dark:bg-gray-800 ${styles.link}`}>
         <Image
+          title={imageCredit}
           alt={imageAlt}
           src={image}
           layout="responsive"

@@ -26,6 +26,7 @@ export type Frontmatter = {
   summary?: string;
   image?: string;
   imageAlt?: string;
+  imageCredit?: string;
   topics?: Array<string>;
 };
 
