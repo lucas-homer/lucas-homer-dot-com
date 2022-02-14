@@ -1,0 +1,63 @@
+---
+title: 'Year in Review'
+publishedAt: '2022-01-21'
+summary: "Looking back on at least a baker's dozen of months"
+image: '/images/elysian.jpg'
+imageAlt: 'Sun rises over Dodger Stadium and Elysian Park in Los Angeles'
+imageCredit: 'Photo by Lucas Homer'
+topics: ['Career']
+---
+
+I am admittedly a little late to publish this year-in-review post. Most folks share this around December and January, but here I am in the middle of February, finally getting around to it. Whenever the time may be, it’s a nice exercise to reflect and share some thoughts. At the end, I’ll share some intentions for the next year.
+
+Last year (read: 14 months ago), I made a list of things I wanted to work on. Some of them are habits, and others are more of the milestone variety. Some habits helped me reach some milestones. None of the items on my list are ever really “done,” but if I put a nice dent in it, that’s a win. I continue to work everyday to be better and celebrate the milestones along the way.
+
+### Learn By Teaching
+
+Toward the end of 2020 I took over responsibility for organizing frontend [chapter](https://www.atlassian.com/agile/agile-at-scale/spotify) meetings. My supervisor had too much on his plate, and since I’d expressed this goal of mine to him, to essentially “[learn in public](https://www.swyx.io/learn-in-public/),” this was a great chance for me to positively impact our engineering culture and to build my own skill set.
+
+My first major topic was [React Query](https://react-query.tanstack.com). I lobbied for us to use the library in new projects, and we’d recently started some projects where I could figure out some patterns and how using it would differ from our existing approach, which was essentially to cache all our client-side data into a Redux store. In order to prepare for presenting what I’d learned, I built outlines that evolved into documentation, and used code examples from ongoing projects.
+
+From my first few talks and continuing through this year’s other talks I’ve given, I became so much more comfortable speaking on technical topics. I think the hardest part is getting used to the fact that your peers will get a lot out of your presentations even if you don’t have an answer to every question they ask. If you’re learning React Query and sharing as you go, you’re capturing that [beginner’s mindset](https://en.wikipedia.org/wiki/Shoshin) that other beginners will find helpful.
+
+So far they’ve tended to fall into two buckets: Broad surveys or detailed case studies. The first is to introduce something to others, stick to the fundamentals, outline the lay of the land, and share resources I found helpful. Unless the topic is really focused, I often don’t have time in thirty minutes to cover concepts as well as detailed real world code examples.
+
+### TypeScript
+
+TypeScript was the technical skill at the top of last year’s list. More specifically, I wanted to become “productive” with TypeScript. Essentially, can I get into flow, identify a problem, and feel comfortable knowing which tool in my TypeScript toolbox to reach for, and effectively use that tool to develop a solution. It’s a bit vague, but purposely so because it’s both achievable and acknowledges over time I’ll face more edge cases, and become more familiar with the less common parts of TypeScript.
+
+A few of us at work had been advocating for the change from JS to TS, and we finally got the approval to start introducing it in some new upcoming projects as well as starting to convert library code to TypeScript. I wanted to work ahead a bit and dig into some resources.
+
+Aside from the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html), the authoritative reference, I picked up Stefan Baumgartner's book, "[TypeScript in 50 Lessons](https://fettblog.eu/books/)." I appreciated his accessible approach and his examples he weaves throughout the chapters. Outside of bite size lessons, he emphasizes writing ["low maintenance types."](fettblog.eu/low-maintenance-types-typsescript) Basically, how can we write our types so when things expand or change, the types and use cases update themselves.
+
+As I worked through Baumgartner's book I took notes and started giving talks at our office's frontend guild meetings. I covered fundamentals and practical examples from our new app's code. I especially dug into React Query's source code. I learned how the library works, how to use types with it, and it inadvertently taught me generics really well. If you’re interested in React Query, my favorite resource outside the docs is a [blog by one of React Query’s maintainers, Dominik Dorfmeister](https://tkdodo.eu/blog/react-query-and-type-script/#generics).
+
+In preparing slide decks and notes for talks, I continued my goal of learning by teaching. I knew if, as I read Baumgartner’s book, I forced myself to explain concepts of TypeScript to others, it would solidify my own understanding. It’s a really fulfilling cycle of reading, learning by building at work, documenting those learnings, and explaining it to others. I’m sure it isn’t perfect, and I have plenty of room for improvement, but it felt great to become proficient with TypeScript and comfortable talking about it with my peers.
+
+### Tests, Courses
+
+These were more clear cut. Finish Kent C Dodds’s [Epic React](http://epicreact.dev) course, and get lots of reps writing tests. Epic React has a decently robust section on writing tests in React apps, and when I got through that portion, I started testing (eye roll) my retention by writing tests for one of our libraries at work, [SQForm](https://github.com/selectquotelabs/sqform). It’s a form library built on top of [Formik](http://formik.org) and [Material UI](https://mui.com), and there are lots of components to be tested, so plenty of training ground there.
+
+Epic React, for my (employer’s) money, was worth it. I benefitted from its review of fundamentals, the foundation around testing, a blind spot of mine until this year, and a couple advanced patterns that were new to me. The format of the course itself got me engaged and helped retention. It can’t replace building an app for real, but sometimes I find courses to be beneficial, especially when they’re geared toward engagement rather than passive videos.
+
+### Happy, Healthy
+
+Saved the most important one for last! Really, though, this year has been tough and transformative. 2020 was not kind to a lot of people, and while I am certainly privileged in important and numerous ways, I struggled a lot too. If I’m being honest I think it stretches back to six months before the pandemic, when my partner and I moved from Kansas City to Los Angeles, and I switched from working on-site 3 days a week to working remotely full time. It makes perfect sense now, but at the time I was surprised how starved for socialization I felt. I learned to build more social events into my free time, but when lockdown started, things got a lot harder.
+
+As lockdown continued, I didn’t have my usual routines to maintain balance. I lost boundaries around work and worked too much. I found myself stressed and anxious and felt isolated. By end of 2020, there was no denying my issues, and I needed to figure out healthy ways to cope.
+
+I picked a few habits I’d dabbled in but hadn’t until that time felt like I really _needed_ in my life — meditation and yoga. I wanted something to calm me down, clear my mind, and get me into a flow state. Whether it’s music, writing code, running, or whatever, getting into flow state always helps me reset.
+
+Over the past year, I added breath work to my night time routine, and I try to mix in yoga at least once a week. They don’t solve everything, but these two habits helped me a lot in the first half of the year.
+
+After I built those couple helpful habits and vaccines became available, I started seeing a therapist. It’s not cheap, but it’s a worthwhile investment. It’s been amazing to gain a better understanding of myself and what makes me tick. The isolation from the pandemic taught me the value of some of my relationships. Therapy gives me some tools to build those relationships and embrace the vulnerability necessary to create new ones too.
+
+Therapy also helps me as an engineer to have more empathy, perspective, and the tools to understand myself and manage when things get stressful. I’m happy I went for it even though it felt weird and scary at first because it helped me be a better teammate and leader.
+
+### The Year Ahead
+
+A lot of my goals for the year ahead center around building on last year’s progress. I continue to cultivate habits like documenting and sharing as I learn, and looking after my mental health. To that end, I’m adding another couple habits like daily journaling and hitting at least 7,000 steps every day. The goal is not to overreact over the occasional missed day, but to build long term consistency.
+
+I already completed one of my goals, to rewrite my website. See here for details on that. Additionally, I want to get back to practicing fundamentals. This is somewhat inspired by my interest in [Remix](http://remix.run). I’ve so far found its focus on web fundamentals refreshing and as I worked through its tutorials I spent a lot of time on MDN instead of the Remix docs itself. Ah, the irony that my propensity to learn the hot new thing in JavaScript world led me back to web platform fundamentals.
+
+So the plan is to build. Build consistent habits to stay happy and healthy. Build more things, mostly in TypeScript, and for the web. And keep trying to improve how I communicate what I learn.
