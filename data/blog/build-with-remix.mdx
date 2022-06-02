@@ -1,0 +1,92 @@
+---
+title: 'Recipes, Remix, React 18'
+publishedAt: '2022-02-13'
+summary: 'Reflecting on my latest personal project, a cookbook app built with Remix'
+image: '/images/vinylrecords.jpg'
+imageAlt: 'A stack of vinyl records'
+imageCredit: 'Photo by Mick Haupt on Unsplash'
+topics: ['Remix', 'React']
+---
+
+This started as a short write-up about my latest side project — [homerfamilycookbook.com](https://homerfamilycookbook.com) — a cookbook app built with the React meta-framework, Remix. Without thinking about my audience (and its hypothetical existence) I wrote a quick blurb about the main features and what inspired the project. As I tend to do, I kept talking, or in this case, writing, but to my coworkers. Funny how much easier it is when you know your audience. So additionally, this post is to share some thoughts about using Remix, how it compares to Next.js, which is what I’ve used at work for the last year and a half, and lastly, how React 18 fits into things.
+
+Code is here — [https://github.com/lucas-homer/homer-family-cookbook](https://github.com/lucas-homer/homer-family-cookbook).
+
+It’s still a work in progress and minimally styled, but it’s pretty complete from a functionality standpoint, minus a few things I still have in the To Do lane. In the interest of learning in public, as well as not letting perfect be the enemy of good, I wanted to share some of what I learned and enjoyed about it.
+
+### Features
+
+A few years ago my mom put together a PDF of a bunch of family recipes. She and I both love to cook, and I wanted to add my own recipes to the cookbook and get others in our family to add their own. No more rifling through drawers and old emails. If I’m being honest, I also needed an excuse to try out Remix, and the cookbook aspect is a happy result that’s been a fun thing for my family, and it made a great Mother’s Day gift. Who knew this would be so sentimental?!
+
+Anyway, with that in mind, the goal was to build something that makes it easy to search and find recipes on a mobile browser. No need to authenticate in order to browse by recipe category or search using recipes names, ingredient names, or category names. If you do create an account, you can add/edit/delete your own recipes, save favorite recipes, see recipes you recently viewed, and add/edit/delete notes on recipes. If you somehow end up trying to do an authentication-required operation, the app will route you to login, and then will redirect you back to the page where you started. I also built a search feature using [Algolia](algolia.com) and its autocomplete component.
+
+As for features yet to come, I’m planning a fun animation on the landing page, password recovery (yikes, I know), tests, and generally a little more polish throughout the UI. Those will keep me busy for sure.
+
+### Learning and Building with Remix
+
+After building my personal site with Next late last year, I wanted to try out Remix, another of the recent meta-frameworks for web development like Next and SvelteKit that offer flexibility between static and server-rendered html, client and server data fetching, plus file-based routing conventions.
+
+I started by working through the Remix docs Jokes App tutorial. It covers essentials like authentication, routing, data loading and mutation, and error handling. For some more examples, I pulled down Kent C Dodds’s [website repo](https://github.com/kentcdodds/kentcdodds.com) and a [small demo app](https://github.com/ryanflorence/remix-planner) I found on Ryan Florence’s page. That made it helpful to see little conventions and ways the framework creators organize things.
+
+Like all of these examples, I also picked [Prisma](https://prisma.io) to model my data, generate types for those models, and connect to a database. I quite enjoy Prisma and find the type generation really wonderful and its migration flow takes the stress out of adjusting the schema.
+
+The [first iteration](https://github.com/lucas-homer/homer-family-cookbook-old) of this app has a few key differences compared to the [second iteration](github.com/lucas-homer/homer-family-cookbook).
+
+First, I used PlanetScale’s MySQL service, except I hit some errors in my app around foreign key constraints, which blocked me for a bit. There’s more info about that [here](https://www.prisma.io/docs/guides/database/using-prisma-with-planetscale#differences-to-consider). I’m sure I could’ve figured it out eventually, but after struggling for a few days, it didn’t feel worthwhile, so I decided to dial down the complexity and use Postgres, something I knew worked well with Prisma. Sometimes I go for too many shiny objects at once and I’m learning to pace myself.
+
+Thankfully at that time the Remix team had just released their [“stacks” concept](http://remix.run/stacks) (starters via Remix CLI), and I could quickly pivot to a Postgres setup with the [Blues stack](https://github.com/remix-run/blues-stack). It comes set up for testing, linting, and then uses Github Actions to trigger builds and deploys to Fly.io. Shout out to the Remix team for shipping that right when I needed it 😊
+
+### What IS Remix?
+
+[Here](https://remix.run/docs/en/v1/pages/technical-explanation) is a really concise response to the question.
+
+The Tl;Dr is it’s, well, a few things. Slightly longer, though:
+
+The Remix compiler creates a server HTTP handler that can render HTML and handle data fetching. It also creates a browser build and an asset manifest so you can prefetch resources in clever ways. Then you can run it all in a Node server, Cloudflare Workers, Deno, or theoretically any other V8 isolate.
+
+It has a few conventions, but its API mostly just guides you into using web platform APIs, so I find myself on MDN just as much as the Remix docs. If nothing else, building this app and learning Remix has taught me a lot of web fundamentals I forgot about and a lot more I never knew.
+
+I hope to pull examples of concepts from my app and make some bite-sized content, but to go deeper on Remix’s details, I made a list of some of my favorite Remix resources so far:
+
+- [Remix docs, obviously](https://remix.run/docs)
+- [“Singles” Youtube playlist](https://www.youtube.com/playlist?list=PLXoynULbYuEDG2wBFSZ66b85EIspy3fy6) — some of the basic patterns and use cases around loading data into components and mutating it with forms
+- [Remix Discord server](https://discord.gg/DeagGWZU7v) was pretty helpful to see what’s already been discussed. Be sure to check out the Showcase channel. They aren’t always public repos, but still fun to see.
+- The [Remix docs on Routing](https://remix.run/docs/en/v1/guides/routing) — When I started the project I was still struggling to totally grok nested routes. A month or two into the project the docs dropped this absolute banger, and things clicked. Look at those visual aids!
+- [kentcdodds.com github repo](https://github.com/kentcdodds/kentcdodds.com) — A pretty robust production example of a Remix app
+- The Remix tutorials — The [Blog app](https://remix.run/docs/en/v1/tutorials/blog) is a nice dip into the water, but the [Jokes app](https://remix.run/docs/en/v1/tutorials/jokes) is more comprehensive, including deploying to [Fly.io](https://fly.io).
+
+### Why Remix?
+
+How does it compare to Next? That’s what I assume my coworkers will ask me.
+
+First, nested routes feel really powerful. For the time being, Remix has nested routes but Next doesn’t. That [will change in the future](https://nextjs.org/blog/layouts-rfc), though. At my day job, we fetch data on the client and cache it with React Query. In the admin dashboard app, we show a list of resources, and then when a user selects a particular resource, we fetch a bunch of details about it and show that in another panel. It’s very similar to the [diagram](https://remix.run/docs/en/v1/guides/routing#what-is-nested-routing) in the nested routes docs.
+
+Using nested routes, we could migrate that logic onto the server, simplify our client code, only fetch what’s necessary at each particular route segment, and end up with an improved user experience too. In other words, instead of coupling data to a component, [Remix’s approach couples it to a segment of the URL](https://youtu.be/Ck-e3hd3pKw?t=9819) (i.e., nested routes).
+
+Second, Remix conventions make fetching and mutating data really simple. It feels like a pit of success. Routes, meaning files inside the `app/routes` directory, are super flexible. At their core, they’re API endpoints. They can accept `GET` requests and `POST` requests on navigation events (links and form submissions) but you can also trigger `GET` requests for a search feature, for example, or you can render a PDF instead of HTML (these are called [“resource routes”](https://remix.run/docs/en/v1/guides/resource-routes#resource-routes)), or don’t render anything and redirect to another (app/)route. And obviously the default export, like Next, is a function that returns a React component. It’s like if you combined Next `pages/api/foo.tsx` and `pages/foo.tsx` into a single file.
+
+Ultimately, when you set aside nested routes (an eventuality for Next), the main differentiating feature seems to be mutations. Remix has two conventionally named function exports from each route file, `loader` and `action`, which handle `GET` and `POST` requests, respectively. I really like the ergonomics of handling the request created by a form submission from the same file.
+
+That’s a little different that Next’s API routes, which live in separate files from page components. While `getServerSideProps` handles loading data on the server but in the same file as the page component, you can’t handle the data mutation/`POST` side of things like you can with Remix’s action function.
+
+Combined with Remix’s built-in `Form` component and built-in hooks `useTransition`, `useActionData`, and `useLoaderData`, you can cover most mutations and build a great UX. If you need to hit a `loader` or `action` outside of a page transition, you can use `useFetcher`. And yes, you can implement [optimistic UI](https://remix.run/docs/en/v1.5.1/guides/optimistic-ui) too.
+
+I guess I’m just used to synthetic events and the whole `preventDefault` gambit, but when Remix got me writing `<form method="post">` and skipping `preventDefault` altogether, it felt liberating. I remember learning the basics of web form submissions in bootcamp, but when I started my first job I promptly memory-holed that to learn a different way that doesn’t Use the Platform _waves hand in Jedi_.
+
+So you write your `loader` function, your `action` function, and your form, and then you realize you don’t even have any JavaScript in the client. Remix again guides us into another web fundamental, progressive enhancement. I really enjoy Next, too, for the record, but these kinds of details make Remix a smidge better, in my opinion. A common criticism of Next (in my own bubble of friends and coworkers) is that it’s a bit too much of a black box. I argue Remix does a better job of avoiding that.
+
+One final thing I found notable is the portability of Remix apps. You can’t run Next outside of Node. However, Remix runs in any kind of JavaScript runtime, including Node, but also runtimes like Cloudflare Workers. As [Concurrent React](https://reactjs.org/blog/2022/03/29/react-v18.html#what-is-concurrent-react) becomes stable and we can use streaming server rendering, it seems reasonable to think [we would want more control over our server](https://youtu.be/q18syhTe3bo?t=1215).
+
+My Remix app runs in Node with Fly, and they handle putting my server in the closest region (or regions) to my users. Works really well! No complaints at all. But the other option, the New Hotness option, is to run your Remix app inside some kind of edge environment.
+
+I’m still learning about edge computing, but the most relevant detail to the context (oops) of React is, unlike an AWS Lambda function, which [doesn’t support streaming responses](https://nextjs.org/docs/advanced-features/react-18/streaming#using-streaming-server-rendering), a Cloudflare Worker, for example, _can_ actually handle streaming so that we can take advantage of [`renderToReadableStream`](https://reactjs.org/blog/2022/03/29/react-v18.html#react-dom-server).
+
+There are a few conference talks that helped connect the dots for me:
+
+- [Shipping to the Edge with Remix, Kent C Dodds, Reactathon 2022](https://www.youtube.com/watch?v=osSaUWlgAyo)
+- [When to Fetch, Ryan Florence (& the Machine), Reactathon 2022 (dev coachella)](https://youtu.be/Ck-e3hd3pKw?t=9264)
+- [Living on the Edge, Sunil Pai, React Advanced 2021](https://www.youtube.com/watch?v=q18syhTe3bo)
+
+To wrap up, let me go back to the hypothetical I posed earlier. Am I going to go lobby my manager and coworkers to switch from Next to Remix? No. Absolutely not. The two frameworks are more similar than they are different. We just finished migrating our form library to TypeScript. React Query works great for us, too. React 18 is going to be great in Next. You better believe we’ll refactor some things once Next ships nested layouts, though!
+
+Will I keep building on my own time with Remix? Definitely yes. I do prefer it, if given the choice. I’m mostly just excited that Next and Remix (and SvelteKit and Astro and…) push the state of web development forward. It’s an exciting time! I hope this post helps you find some perspective if you’re evaluating Remix, and I hope it points you in the right direction, toward resources I found helpful. I look forward to continuing to learn, improve my own projects, and sharing the journey along the way.
