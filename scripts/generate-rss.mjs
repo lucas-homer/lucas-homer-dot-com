@@ -12,14 +12,15 @@ async function generate() {
 
   const blogPosts = readdirSync(join(process.cwd(), 'data', 'blog'));
   blogPosts.map((name) => {
+    const slug = name.replace('.mdx', '');
     const content = readFileSync(join(process.cwd(), 'data', 'blog', name));
-    const frontMatter = matter(content);
+    const { data } = matter(content);
 
     feed.item({
-      title: frontMatter.title,
-      url: `https://lucashomer.com/blog/${frontMatter.slug}`,
-      date: frontMatter.publishedAt,
-      description: frontMatter.summary
+      title: data.title,
+      url: `https://lucashomer.com/blog/${slug}`,
+      date: data.publishedAt,
+      description: data.summary
     });
   });
 
