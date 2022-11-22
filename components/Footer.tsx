@@ -31,11 +31,14 @@ export default function Footer() {
           </Link>
         </div>
         <div className="flex flex-col space-y-4">
-          <ExternalLink href="https://linkedin.com/in/lucas-homer">
+          {/* <ExternalLink href="https://linkedin.com/in/lucas-homer">
             LinkedIn
-          </ExternalLink>
+          </ExternalLink> */}
           <ExternalLink href="https://github.com/lucas-homer">
             GitHub
+          </ExternalLink>
+          <ExternalLink rel="me" href="https://hachyderm.io/@lucashomer">
+            Mastodon
           </ExternalLink>
         </div>
         <div className="flex flex-col space-y-4">
