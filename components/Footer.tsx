@@ -37,9 +37,13 @@ export default function Footer() {
           <ExternalLink href="https://github.com/lucas-homer">
             GitHub
           </ExternalLink>
-          <ExternalLink rel="me" href="https://hachyderm.io/@lucashomer">
+          <a
+            className={footerTextClasses}
+            target="_blank"
+            rel="me noopener noreferrer"
+            href="https://hachyderm.io/@lucashomer">
             Mastodon
-          </ExternalLink>
+          </a>
         </div>
         <div className="flex flex-col space-y-4">
           <Link href="/notes">
