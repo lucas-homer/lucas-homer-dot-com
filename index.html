@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluid Cartography</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --anthropic-dark: #e8e4dc;
+            --anthropic-light: #1a1918;
+            --anthropic-mid-gray: #6a675e;
+            --anthropic-light-gray: #2a2826;
+            --anthropic-orange: #8b5a3a;
+            --anthropic-blue: #3a5565;
+            --anthropic-green: #4a5a38;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%; overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--anthropic-dark);
+        }
+
+        /* ── Full-page canvas ── */
+        #canvas-container {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; z-index: 0;
+        }
+        #canvas-container canvas {
+            display: block; width: 100% !important; height: 100% !important;
+        }
+
+        /* ── Drawer toggle button ── */
+        .drawer-toggle {
+            position: fixed; bottom: 24px; right: 24px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.10);
+            cursor: pointer; z-index: 10;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .drawer-toggle:hover {
+            transform: scale(1.08);
+            background: rgba(255,255,255,0.14);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+        .drawer-toggle .bar {
+            display: block; width: 18px; height: 2px;
+            background: rgba(255,255,255,0.45); border-radius: 1px;
+            position: relative;
+        }
+        .drawer-toggle .bar::before,
+        .drawer-toggle .bar::after {
+            content: ''; position: absolute; left: 0;
+            width: 18px; height: 2px;
+            background: rgba(255,255,255,0.45); border-radius: 1px;
+        }
+        .drawer-toggle .bar::before { top: -6px; }
+        .drawer-toggle .bar::after  { top:  6px; }
+        .drawer-toggle.hidden { opacity: 0; pointer-events: none; transform: scale(0.9); }
+
+        /* ── Slide-in drawer ── */
+        .drawer {
+            position: fixed; top: 0; right: 0;
+            width: 320px; height: 100vh;
+            background: rgba(18,17,16,0.92);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(255,255,255,0.06);
+            box-shadow: -8px 0 30px rgba(0,0,0,0.4);
+            padding: 28px 24px 24px;
+            overflow-y: auto; overflow-x: hidden;
+            z-index: 20;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        .drawer.open { transform: translateX(0); }
+
+        .drawer-close {
+            position: absolute; top: 20px; right: 20px;
+            width: 32px; height: 32px;
+            border: none; background: none; cursor: pointer;
+            font-size: 22px; line-height: 32px; text-align: center;
+            color: var(--anthropic-mid-gray);
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .drawer-close:hover { color: var(--anthropic-dark); background: rgba(255,255,255,0.06); }
+
+        .drawer h1 {
+            font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; letter-spacing: 0.01em;
+            color: var(--anthropic-dark); margin-bottom: 6px; padding-right: 36px;
+        }
+        .drawer .subtitle {
+            color: var(--anthropic-mid-gray); font-size: 13px;
+            margin-bottom: 28px; line-height: 1.4;
+        }
+
+        /* ── Control sections ── */
+        .control-section { margin-bottom: 26px; }
+        .control-section h3 {
+            font-size: 15px; font-weight: 600; color: var(--anthropic-dark);
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .control-section h3::before { content: '\2022'; color: var(--anthropic-orange); font-weight: bold; }
+
+        .seed-input {
+            width: 100%; background: var(--anthropic-light); padding: 10px;
+            border-radius: 8px; font-family: 'Courier New', monospace; font-size: 14px;
+            margin-bottom: 10px; border: 1px solid var(--anthropic-light-gray); text-align: center;
+            color: var(--anthropic-dark);
+        }
+        .seed-input:focus { outline: none; border-color: var(--anthropic-orange); box-shadow: 0 0 0 2px rgba(139,90,58,0.2); background: #1e1d1c; }
+        .seed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+        .regen-button { margin-bottom: 0; }
+
+        .control-group { margin-bottom: 16px; }
+        .control-group label { display: block; font-size: 13px; font-weight: 500; color: var(--anthropic-dark); margin-bottom: 6px; }
+        .slider-container { display: flex; align-items: center; gap: 10px; }
+        .slider-container input[type="range"] {
+            flex: 1; height: 4px; background: var(--anthropic-light-gray);
+            border-radius: 2px; outline: none; -webkit-appearance: none;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 16px; height: 16px;
+            background: var(--anthropic-orange); border-radius: 50%; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); background: #a06a45; }
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px; background: var(--anthropic-orange);
+            border-radius: 50%; border: none; cursor: pointer;
+        }
+        .value-display { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); min-width: 44px; text-align: right; }
+
+        .color-group { margin-bottom: 14px; }
+        .color-group label { display: block; font-size: 12px; color: var(--anthropic-mid-gray); margin-bottom: 4px; }
+        .color-picker-container { display: flex; align-items: center; gap: 8px; }
+        .color-picker-container input[type="color"] { width: 28px; height: 28px; border: none; border-radius: 6px; cursor: pointer; background: none; padding: 0; }
+        .color-value { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); }
+
+        .button {
+            background: var(--anthropic-orange); color: white; border: none;
+            padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease; width: 100%;
+        }
+        .button:hover { background: #a06a45; transform: translateY(-1px); }
+        .button:active { transform: translateY(0); }
+        .button.secondary { background: var(--anthropic-blue); }
+        .button.secondary:hover { background: #4a6878; }
+        .button.tertiary { background: var(--anthropic-green); }
+        .button.tertiary:hover { background: #5a6b45; }
+        .button-row { display: flex; gap: 8px; }
+        .button-row .button { flex: 1; }
+
+        /* ── Scrollbar ── */
+        .drawer::-webkit-scrollbar { width: 6px; }
+        .drawer::-webkit-scrollbar-track { background: transparent; }
+        .drawer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        .drawer::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+        /* ── Mobile ── */
+        @media (max-width: 480px) {
+            .drawer { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Full-page canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Drawer toggle -->
+    <button class="drawer-toggle" id="drawer-toggle" onclick="openDrawer()" aria-label="Settings">
+        <span class="bar"></span>
+    </button>
+
+    <!-- Settings drawer -->
+    <div class="drawer" id="drawer">
+        <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">&times;</button>
+
+        <h1>Fluid Cartography</h1>
+        <div class="subtitle">Topographic contours breathing with ocean swell</div>
+
+        <div class="control-section">
+            <h3>Seed</h3>
+            <input type="number" id="seed-input" class="seed-input" value="180" onchange="updateSeed()">
+            <div class="seed-controls">
+                <button class="button secondary" onclick="previousSeed()">&larr; Prev</button>
+                <button class="button secondary" onclick="nextSeed()">Next &rarr;</button>
+            </div>
+            <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">&#8635; Random</button>
+        </div>
+
+        <div class="control-section">
+            <h3>Terrain</h3>
+            <div class="control-group">
+                <label>Terrain Features</label>
+                <div class="slider-container">
+                    <input type="range" id="peakCount" min="3" max="15" step="1" value="15" oninput="updateParam('peakCount', this.value, true)">
+                    <span class="value-display" id="peakCount-value">15</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Terrain Detail</label>
+                <div class="slider-container">
+                    <input type="range" id="noiseAmount" min="0.00" max="0.60" step="0.02" value="0.58" oninput="updateParam('noiseAmount', this.value, true)">
+                    <span class="value-display" id="noiseAmount-value">0.58</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Contour Lines</label>
+                <div class="slider-container">
+                    <input type="range" id="contourCount" min="6" max="30" step="1" value="30" oninput="updateParam('contourCount', this.value, false)">
+                    <span class="value-display" id="contourCount-value">30</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Line Weight</label>
+                <div class="slider-container">
+                    <input type="range" id="lineWeight" min="0.3" max="2.5" step="0.1" value="0.4" oninput="updateParam('lineWeight', this.value, false)">
+                    <span class="value-display" id="lineWeight-value">0.4</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Wave</h3>
+            <div class="control-group">
+                <label>Amplitude</label>
+                <div class="slider-container">
+                    <input type="range" id="waveAmplitude" min="0.00" max="0.50" step="0.02" value="0.06" oninput="updateParam('waveAmplitude', this.value, false)">
+                    <span class="value-display" id="waveAmplitude-value">0.06</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Frequency</label>
+                <div class="slider-container">
+                    <input type="range" id="waveFrequency" min="0.002" max="0.025" step="0.001" value="0.005" oninput="updateParam('waveFrequency', this.value, false)">
+                    <span class="value-display" id="waveFrequency-value">0.005</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Speed</label>
+                <div class="slider-container">
+                    <input type="range" id="waveSpeed" min="0.2" max="4.0" step="0.1" value="0.3" oninput="updateParam('waveSpeed', this.value, false)">
+                    <span class="value-display" id="waveSpeed-value">0.3</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Direction</label>
+                <div class="slider-container">
+                    <input type="range" id="waveAngle" min="0" max="360" step="5" value="140" oninput="updateParam('waveAngle', this.value, false)">
+                    <span class="value-display" id="waveAngle-value">140&deg;</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Colors</h3>
+            <div class="color-group">
+                <label>Valley</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color1" value="#3a5565" onchange="updateColor('color1', this.value)">
+                    <span class="color-value" id="color1-value">#3a5565</span>
+                </div>
+            </div>
+            <div class="color-group">
+                <label>Terrain</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color2" value="#5a4e35" onchange="updateColor('color2', this.value)">
+                    <span class="color-value" id="color2-value">#5a4e35</span>
+                </div>
+            </div>
+            <div class="color-group">
+                <label>Peak</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color3" value="#5a3a22" onchange="updateColor('color3', this.value)">
+                    <span class="color-value" id="color3-value">#5a3a22</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Actions</h3>
+            <div class="button-row">
+                <button class="button" onclick="regenerate()">Regenerate</button>
+                <button class="button tertiary" id="pause-btn" onclick="togglePause()">&#9208; Pause</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // =================================================================
+    // PARAMETERS — defaults match user's preferred settings
+    // =================================================================
+    let params = {
+        seed: 180,
+        peakCount: 15,
+        noiseAmount: 0.58,
+        contourCount: 30,
+        lineWeight: 0.4,
+        waveAmplitude: 0.06,
+        waveFrequency: 0.005,
+        waveSpeed: 0.3,
+        waveAngle: 140,
+        colorPalette: ['#3a5565', '#5a4e35', '#5a3a22']
+    };
+    let defaultParams = JSON.parse(JSON.stringify(params));
+
+    // =================================================================
+    // STATE
+    // =================================================================
+    let cellSize = 7;
+    let gridCols, gridRows;
+    let baseGrid, animGrid;
+    let peaks = [];
+    let baseMin = 0, baseMax = 1;
+    let animTime = 0;
+    let paused = false;
+    let bgR = 14, bgG = 13, bgB = 12;
+
+    // =================================================================
+    // DRAWER
+    // =================================================================
+    function openDrawer() {
+        document.getElementById('drawer').classList.add('open');
+        document.getElementById('drawer-toggle').classList.add('hidden');
+    }
+    function closeDrawer() {
+        document.getElementById('drawer').classList.remove('open');
+        document.getElementById('drawer-toggle').classList.remove('hidden');
+    }
+    // Close drawer on click outside
+    document.addEventListener('click', function(e) {
+        let drawer = document.getElementById('drawer');
+        let toggle = document.getElementById('drawer-toggle');
+        if (drawer.classList.contains('open') &&
+            !drawer.contains(e.target) &&
+            !toggle.contains(e.target)) {
+            closeDrawer();
+        }
+    });
+
+    // =================================================================
+    // TERRAIN GENERATION
+    // =================================================================
+    function fractalNoise(x, y) {
+        let val = 0, amp = 1, freq = 0.005, total = 0;
+        for (let o = 0; o < 4; o++) {
+            val += amp * noise(x * freq + 500, y * freq + 700);
+            total += amp; amp *= 0.5; freq *= 2;
+        }
+        return val / total;
+    }
+
+    function generateTerrain() {
+        let w = width, h = height;
+        let dim = Math.max(w, h);
+        peaks = [];
+        for (let i = 0; i < params.peakCount; i++) {
+            let px = random(w * 0.05, w * 0.95);
+            let py = random(h * 0.05, h * 0.95);
+            let hv = random(-0.7, 1.0);
+            if (random() < 0.6) hv = Math.abs(hv);
+            let dc = dist(px, py, w / 2, h / 2) / (dim / 2);
+            hv *= (1 - dc * 0.25);
+            peaks.push({ x: px, y: py, height: hv, radius: random(dim * 0.06, dim * 0.22) });
+        }
+
+        gridCols = Math.floor(w / cellSize) + 2;
+        gridRows = Math.floor(h / cellSize) + 2;
+        baseGrid = new Float32Array(gridCols * gridRows);
+        animGrid = new Float32Array(gridCols * gridRows);
+        baseMin = Infinity; baseMax = -Infinity;
+
+        for (let j = 0; j < gridRows; j++) {
+            for (let i = 0; i < gridCols; i++) {
+                let x = i * cellSize, y = j * cellSize;
+                let e = 0;
+                for (let p of peaks) {
+                    let dx = x - p.x, dy = y - p.y;
+                    e += p.height * Math.exp(-(dx * dx + dy * dy) / (2 * p.radius * p.radius));
+                }
+                e += params.noiseAmount * (fractalNoise(x, y) - 0.5);
+                baseGrid[i + j * gridCols] = e;
+                if (e < baseMin) baseMin = e;
+                if (e > baseMax) baseMax = e;
+            }
+        }
+    }
+
+    // =================================================================
+    // WAVE + ANIMATED GRID
+    // =================================================================
+    function computeAnimatedGrid() {
+        let dirRad = params.waveAngle * Math.PI / 180;
+        let dx = Math.cos(dirRad), dy = Math.sin(dirRad);
+        let freq = params.waveFrequency, amp = params.waveAmplitude;
+        let spd = params.waveSpeed, t = animTime;
+        let len = gridCols * gridRows;
+
+        for (let j = 0; j < gridRows; j++) {
+            for (let i = 0; i < gridCols; i++) {
+                let x = i * cellSize, y = j * cellSize;
+                let phase = (x * dx + y * dy) * freq;
+                let w = Math.sin(phase - t * spd);
+                w += 0.3 * Math.sin(2 * phase - t * spd * 1.12 + 0.5);
+                w += 0.15 * Math.sin(3 * phase - t * spd * 0.88 + 1.2);
+                w *= amp / 1.45;
+                animGrid[i + j * gridCols] = baseGrid[i + j * gridCols] + w;
+            }
+        }
+    }
+
+    // =================================================================
+    // CONTOUR LEVELS + COLOR
+    // =================================================================
+    function computeContourLevels() {
+        let mn = baseMin - params.waveAmplitude - 0.03;
+        let mx = baseMax + params.waveAmplitude + 0.03;
+        let levels = [], n = params.contourCount;
+        for (let i = 1; i <= n; i++) levels.push(mn + (mx - mn) * i / (n + 1));
+        return levels;
+    }
+
+    function hexToRgb(hex) {
+        let r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return r ? [parseInt(r[1],16), parseInt(r[2],16), parseInt(r[3],16)] : [100,100,100];
+    }
+
+    function getContourColor(k, total) {
+        let t = total > 1 ? k / (total - 1) : 0.5;
+        let c1 = hexToRgb(params.colorPalette[0]);
+        let c2 = hexToRgb(params.colorPalette[1]);
+        let c3 = hexToRgb(params.colorPalette[2]);
+        let r, g, b;
+        if (t < 0.5) {
+            let s = t * 2; s = s * s * (3 - 2 * s);
+            r = c1[0]+(c2[0]-c1[0])*s; g = c1[1]+(c2[1]-c1[1])*s; b = c1[2]+(c2[2]-c1[2])*s;
+        } else {
+            let s = (t-0.5)*2; s = s * s * (3 - 2 * s);
+            r = c2[0]+(c3[0]-c2[0])*s; g = c2[1]+(c3[1]-c2[1])*s; b = c2[2]+(c3[2]-c2[2])*s;
+        }
+        return [Math.round(r), Math.round(g), Math.round(b)];
+    }
+
+    // =================================================================
+    // MARCHING SQUARES
+    // =================================================================
+    function marchLevel(level, ctx) {
+        let cs = cellSize;
+        for (let j = 0; j < gridRows - 1; j++) {
+            let ri = j * gridCols;
+            for (let i = 0; i < gridCols - 1; i++) {
+                let idx = ri + i;
+                let a = animGrid[idx];
+                let b = animGrid[idx + 1];
+                let c = animGrid[idx + 1 + gridCols];
+                let d = animGrid[idx + gridCols];
+
+                let ci = 0;
+                if (a >= level) ci |= 1;
+                if (b >= level) ci |= 2;
+                if (c >= level) ci |= 4;
+                if (d >= level) ci |= 8;
+                if (ci === 0 || ci === 15) continue;
+
+                let x = i * cs, y = j * cs;
+                let tab = Math.abs(b-a)<1e-8 ? 0.5 : (level-a)/(b-a);
+                tab = Math.max(0, Math.min(1, tab));
+                let tx = x+tab*cs, ty = y;
+                let tbc = Math.abs(c-b)<1e-8 ? 0.5 : (level-b)/(c-b);
+                tbc = Math.max(0, Math.min(1, tbc));
+                let rx = x+cs, ry = y+tbc*cs;
+                let tdc = Math.abs(c-d)<1e-8 ? 0.5 : (level-d)/(c-d);
+                tdc = Math.max(0, Math.min(1, tdc));
+                let bx = x+tdc*cs, by = y+cs;
+                let tad = Math.abs(d-a)<1e-8 ? 0.5 : (level-a)/(d-a);
+                tad = Math.max(0, Math.min(1, tad));
+                let lx = x, ly = y+tad*cs;
+
+                switch (ci) {
+                    case 1: case 14: ctx.moveTo(tx,ty); ctx.lineTo(lx,ly); break;
+                    case 2: case 13: ctx.moveTo(tx,ty); ctx.lineTo(rx,ry); break;
+                    case 3: case 12: ctx.moveTo(lx,ly); ctx.lineTo(rx,ry); break;
+                    case 4: case 11: ctx.moveTo(rx,ry); ctx.lineTo(bx,by); break;
+                    case 6: case 9:  ctx.moveTo(tx,ty); ctx.lineTo(bx,by); break;
+                    case 7: case 8:  ctx.moveTo(lx,ly); ctx.lineTo(bx,by); break;
+                    case 5: {
+                        let ctr=(a+b+c+d)*0.25;
+                        if(ctr>=level){ctx.moveTo(tx,ty);ctx.lineTo(rx,ry);ctx.moveTo(lx,ly);ctx.lineTo(bx,by);}
+                        else{ctx.moveTo(tx,ty);ctx.lineTo(lx,ly);ctx.moveTo(rx,ry);ctx.lineTo(bx,by);}
+                        break;
+                    }
+                    case 10: {
+                        let ctr=(a+b+c+d)*0.25;
+                        if(ctr>=level){ctx.moveTo(tx,ty);ctx.lineTo(lx,ly);ctx.moveTo(rx,ry);ctx.lineTo(bx,by);}
+                        else{ctx.moveTo(tx,ty);ctx.lineTo(rx,ry);ctx.moveTo(lx,ly);ctx.lineTo(bx,by);}
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // =================================================================
+    // DRAW CONTOURS
+    // =================================================================
+    function drawAllContours() {
+        let levels = computeContourLevels();
+        let ctx = drawingContext;
+        ctx.lineCap = 'round';
+        for (let k = 0; k < levels.length; k++) {
+            let isIndex = (k % 5 === 4);
+            let col = getContourColor(k, levels.length);
+            let alpha = isIndex ? 0.70 : 0.42;
+            let wt = isIndex ? params.lineWeight * 2.2 : params.lineWeight;
+            ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+alpha+')';
+            ctx.lineWidth = wt;
+            ctx.beginPath();
+            marchLevel(levels[k], ctx);
+            ctx.stroke();
+        }
+    }
+
+    // =================================================================
+    // P5.JS LIFECYCLE
+    // =================================================================
+    function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent('canvas-container');
+        initializeSystem();
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        initializeSystem();
+    }
+
+    function initializeSystem() {
+        randomSeed(params.seed);
+        noiseSeed(params.seed);
+        generateTerrain();
+        animTime = 0;
+        paused = false;
+        let btn = document.getElementById('pause-btn');
+        if (btn) btn.innerHTML = '&#9208; Pause';
+        loop();
+    }
+
+    function draw() {
+        if (!paused) animTime += Math.min(deltaTime, 50) / 1000;
+        computeAnimatedGrid();
+        background(bgR, bgG, bgB);
+        drawAllContours();
+    }
+
+    // =================================================================
+    // UI HANDLERS
+    // =================================================================
+    function formatValue(name, value) {
+        let v = parseFloat(value);
+        if (name === 'waveFrequency') return v.toFixed(3);
+        if (name === 'waveAngle') return v + '\u00B0';
+        if (['noiseAmount','waveAmplitude'].includes(name)) return v.toFixed(2);
+        if (['lineWeight','waveSpeed'].includes(name)) return v.toFixed(1);
+        return String(v);
+    }
+
+    function updateParam(name, value, needsRegen) {
+        params[name] = parseFloat(value);
+        document.getElementById(name+'-value').innerHTML = formatValue(name, value);
+        if (needsRegen) initializeSystem();
+    }
+
+    function updateColor(colorId, value) {
+        let idx = parseInt(colorId.replace('color','')) - 1;
+        params.colorPalette[idx] = value;
+        document.getElementById(colorId+'-value').textContent = value;
+    }
+
+    function regenerate() { initializeSystem(); }
+
+    function togglePause() {
+        paused = !paused;
+        document.getElementById('pause-btn').innerHTML = paused ? '&#9654; Play' : '&#9208; Pause';
+        if (!paused) loop();
+    }
+
+    function updateUIFromParams() {
+        let ids = ['peakCount','noiseAmount','contourCount','lineWeight',
+                    'waveAmplitude','waveFrequency','waveSpeed','waveAngle'];
+        for (let id of ids) {
+            let el = document.getElementById(id);
+            if (el) { el.value = params[id]; document.getElementById(id+'-value').innerHTML = formatValue(id, params[id]); }
+        }
+        for (let i = 0; i < 3; i++) {
+            let el = document.getElementById('color'+(i+1));
+            if (el) { el.value = params.colorPalette[i]; document.getElementById('color'+(i+1)+'-value').textContent = params.colorPalette[i]; }
+        }
+        updateSeedDisplay();
+    }
+
+    // =================================================================
+    // SEED CONTROLS
+    // =================================================================
+    function updateSeedDisplay() { document.getElementById('seed-input').value = params.seed; }
+
+    function updateSeed() {
+        let v = parseInt(document.getElementById('seed-input').value);
+        if (v && v > 0) { params.seed = v; initializeSystem(); } else updateSeedDisplay();
+    }
+
+    function previousSeed() { params.seed = Math.max(1, params.seed-1); updateSeedDisplay(); initializeSystem(); }
+    function nextSeed() { params.seed++; updateSeedDisplay(); initializeSystem(); }
+    function randomSeedAndUpdate() { params.seed = Math.floor(Math.random()*999999)+1; updateSeedDisplay(); initializeSystem(); }
+
+    window.addEventListener('load', function() { updateSeedDisplay(); });
+    </script>
+</body>
+</html>

@@ -1,15 +1,6 @@
-import { Frontmatter } from './types';
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-export function convertToSlug(name: string) {
-  return name.toLowerCase().split(' ').join('-');
-}
-
-export function convertSlugToName(slug: string) {
-  return slug.split('-').join(' ');
-}
-
-export function frontmatterHasTopic(frontmatterObj: Frontmatter, topicName) {
-  return frontmatterObj.topics?.some(
-    (topic) => topic.toLowerCase() === topicName
-  );
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
