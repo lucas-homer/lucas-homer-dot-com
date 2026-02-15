@@ -72,11 +72,11 @@
 
 /* View transition animations */
 ::view-transition-old(page-content) {
-  animation: fade-out 0.2s ease-in-out;
+  animation: fade-out 0.25s ease-in-out both;
 }
 
 ::view-transition-new(page-content) {
-  animation: fade-in 0.3s ease-in-out;
+  animation: fade-in 0.25s ease-in-out both;
 }
 
 @keyframes fade-out {
