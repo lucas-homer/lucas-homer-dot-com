@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="c">
+      <rect width="32" height="32" rx="6"/>
+    </clipPath>
+  </defs>
+
+  <rect width="32" height="32" rx="6" fill="#0e0d0c"/>
+
+  <g clip-path="url(#c)">
+    <!-- Contour 8: darkest teal, offset 28 -->
+    <path d="M-17 8 A28 28 0 0 1 38 2 A28 28 0 0 1 21 52 L11 52 A28 28 0 0 1 -17 24 Z"
+          stroke="#273d4a" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 7: dark teal, offset 22 -->
+    <path d="M-11 8 A22 22 0 0 1 33 5.5 A22 22 0 0 1 21 46 L11 46 A22 22 0 0 1 -11 24 Z"
+          stroke="#2d4858" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 6: mid teal, offset 17 -->
+    <path d="M-6 8 A17 17 0 0 1 28 8.5 A17 17 0 0 1 21 41 L11 41 A17 17 0 0 1 -6 24 Z"
+          stroke="#335060" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 5: teal, offset 12.5 -->
+    <path d="M-1.5 8 A12.5 12.5 0 0 1 23.5 8 L23.5 12 A12.5 12.5 0 0 1 21 36.5 L11 36.5 A12.5 12.5 0 0 1 -1.5 24 Z"
+          stroke="#3a5565" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 4: olive-teal, offset 9 -->
+    <path d="M2 8 A9 9 0 0 1 20 8 L20 15 L21 15 A9 9 0 0 1 21 33 L11 33 A9 9 0 0 1 2 24 Z"
+          stroke="#4a524a" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 3: olive, offset 6 -->
+    <path d="M5 8 A6 6 0 0 1 17 8 L17 18 L21 18 A6 6 0 0 1 21 30 L11 30 A6 6 0 0 1 5 24 Z"
+          stroke="#5a4e35" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 2: mid sienna, offset 3.5 -->
+    <path d="M7.5 8 A3.5 3.5 0 0 1 14.5 8 L14.5 20.5 L21 20.5 A3.5 3.5 0 0 1 21 27.5 L11 27.5 A3.5 3.5 0 0 1 7.5 24 Z"
+          stroke="#6b4a2c" stroke-width="0.9" fill="none"/>
+
+    <!-- Contour 1: sienna, offset 1.5 -->
+    <path d="M9.5 8 A1.5 1.5 0 0 1 12.5 8 L12.5 22.5 L21 22.5 A1.5 1.5 0 0 1 21 25.5 L11 25.5 A1.5 1.5 0 0 1 9.5 24 Z"
+          stroke="#8b5a3a" stroke-width="0.9" fill="none"/>
+
+    <!-- L ridge: white -->
+    <path d="M11 8 L11 24 L21 24"
+          stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
