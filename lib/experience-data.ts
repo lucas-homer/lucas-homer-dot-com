@@ -207,7 +207,7 @@ export const experience: Role[] = [
     dates: "2011 – 2014",
     navLabel: "KU Law",
     category: "personal",
-    bullets: [],
+    bullets: ["Media Law and Technology Certificate"],
     tags: [],
   },
   {
@@ -217,7 +217,10 @@ export const experience: Role[] = [
     dates: "2007 – 2011",
     navLabel: "KU",
     category: "personal",
-    bullets: [],
+    bullets: [
+      "University Honors Program",
+      "Music Minor, Business Minor",
+    ],
     tags: [],
   },
 ];
