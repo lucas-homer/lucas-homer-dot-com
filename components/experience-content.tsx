@@ -21,7 +21,24 @@ function buildSections(): Section[] {
   const sections: Section[] = [];
   let sqInserted = false;
 
-  // Courses card first (personal, 2025)
+  const rostrRole = experience.find((r) => r.id === "rostr");
+  const selectQuoteRoles = experience.filter((r) => r.group === "selectquote");
+
+  // ROSTR first
+  if (rostrRole) {
+    sections.push({
+      id: rostrRole.id,
+      navLabel: rostrRole.navLabel,
+      category: rostrRole.category,
+      node: (
+        <div key={rostrRole.id} id={rostrRole.id} className="scroll-mt-24">
+          <RoleCard role={rostrRole} />
+        </div>
+      ),
+    });
+  }
+
+  // Courses card second
   sections.push({
     id: "courses",
     navLabel: "AI Training",
@@ -33,9 +50,9 @@ function buildSections(): Section[] {
     ),
   });
 
-  const selectQuoteRoles = experience.filter((r) => r.group === "selectquote");
-
   for (const role of experience) {
+    if (role.id === "rostr") continue;
+
     if (role.group === "selectquote") {
       if (!sqInserted) {
         sections.push({

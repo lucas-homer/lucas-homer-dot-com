@@ -54,8 +54,7 @@ export const experience: Role[] = [
     navLabel: "ROSTR",
     category: "professional",
     bullets: [
-      "Owned end-to-end development of company's new web application and first iOS app, from architecture and design through App Store release. Achieved 100% adoption from existing Pro subscribers.",
-      "Leveraged cross-platform stack (Expo, React Native, React Native for Web, Tamagui) to maximize code reuse and efficiently ship both platforms",
+      "Designed and delivered the company's first iOS app and a new web platform, consolidating two products into one cross-platform codebase using Expo, React Native, and Tamagui.",
       "Modernized CI/CD pipelines with GitHub Actions and automated end-to-end testing using Maestro (iOS) and Playwright (web)",
       "Eliminated secrets sprawl and enhanced security by implementing HashiCorp Vault solution (GKE, Terraform, Helm) with OIDC-based authentication",
     ],
