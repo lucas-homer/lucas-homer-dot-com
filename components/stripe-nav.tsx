@@ -1,20 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { experience } from "@/lib/experience-data";
 
-const navItems = experience.map((role) => ({
-  id: role.id,
-  label: role.navLabel,
-}));
+interface NavItem {
+  id: string;
+  label: string;
+}
 
-export function StripeNav() {
-  const [activeId, setActiveId] = useState(navItems[0].id);
+export function StripeNav({ navItems }: { navItems: NavItem[] }) {
+  const [activeId, setActiveId] = useState(navItems[0]?.id ?? "");
   const [hovered, setHovered] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
 
+  const firstId = navItems[0]?.id ?? "";
+  if (activeId && !navItems.some((item) => item.id === activeId)) {
+    setActiveId(firstId);
+  }
+
   useEffect(() => {
+    if (navItems.length === 0) return;
+
     const observers: IntersectionObserver[] = [];
 
     for (const item of navItems) {
@@ -37,12 +43,14 @@ export function StripeNav() {
     return () => {
       for (const obs of observers) obs.disconnect();
     };
-  }, []);
+  }, [navItems]);
 
   function handleClick(id: string) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }
+
+  if (navItems.length === 0) return null;
 
   return (
     <div

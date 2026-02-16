@@ -5,9 +5,45 @@ export interface Role {
   dates: string;
   navLabel: string;
   group?: string;
+  category: "professional" | "personal";
   bullets: string[];
   tags: string[];
 }
+
+export interface CourseItem {
+  title: string;
+  instructor: string;
+  type: string;
+  dates: string;
+  url: string;
+  bullets: string[];
+}
+
+export const courses: CourseItem[] = [
+  {
+    title: "Build Your Own Personal AI Assistant",
+    instructor: "Matt Pocock",
+    type: "Cohort-based Course",
+    dates: "December 2025",
+    url: "https://www.aihero.dev/cohorts/build-your-own-ai-personal-assistant-in-typescript",
+    bullets: [
+      "Implemented retrieval techniques (BM25, embeddings, RRF, chunking, reranking), semantic and episodic memory systems, and evaluations",
+      "Built tool-calling agents with human-in-the-loop approval, MCP server integration, and deterministic workflows",
+      "Vercel AI SDK, Evalite, Langfuse",
+    ],
+  },
+  {
+    title: "Advanced MCP",
+    instructor: "Kent C. Dodds",
+    type: "Workshop",
+    dates: "July 2025",
+    url: "https://www.epicai.pro/events/workshop-advanced-mcp-features-2025-07-30",
+    bullets: [
+      "Learned to build real-world AI integrations using MCP SDK features: structured output, sampling, elicitation, progress notifications, cancellation, and dynamic subscriptions",
+      "Hands-on debugging and tool design patterns for production MCP integrations",
+    ],
+  },
+];
 
 export const experience: Role[] = [
   {
@@ -16,6 +52,7 @@ export const experience: Role[] = [
     company: "ROSTR",
     dates: "Sep 2023 – Present",
     navLabel: "ROSTR",
+    category: "professional",
     bullets: [
       "Owned end-to-end development of company's new web application and first iOS app, from architecture and design through App Store release. Achieved 100% adoption from existing Pro subscribers.",
       "Leveraged cross-platform stack (Expo, React Native, React Native for Web, Tamagui) to maximize code reuse and efficiently ship both platforms",
@@ -36,6 +73,7 @@ export const experience: Role[] = [
     company: "Optum",
     dates: "Jan 2023 – Sep 2023",
     navLabel: "Optum",
+    category: "professional",
     bullets: [
       "Technical lead on team of 6 product engineers building multiple Next.js apps and GraphQL APIs for UnitedHealthCare's member portal",
       "Maintained high stability, availability, and ultimately NPS scores, with automated tests using Playwright, Testing Library, and Jest",
@@ -57,6 +95,7 @@ export const experience: Role[] = [
     company: "Utopia Music",
     dates: "Oct 2022 – Dec 2022",
     navLabel: "Utopia Music",
+    category: "professional",
     bullets: [
       "Worked on a team of 5 engineers building a social network for music industry professionals, using TypeScript, Remix, MongoDB, Docker, and GCP",
     ],
@@ -69,6 +108,7 @@ export const experience: Role[] = [
     dates: "Sep 2021 – Oct 2022",
     navLabel: "SQ Supervisor",
     group: "selectquote",
+    category: "professional",
     bullets: [
       "Led team building a reusable and configurable admin dashboard application, streamlining development resources and shipping more features across all lines of business",
       "Worked with stakeholders across lines of business to translate business problems into technical requirements",
@@ -83,6 +123,7 @@ export const experience: Role[] = [
     dates: "Apr 2020 – Sep 2021",
     navLabel: "SQ Senior",
     group: "selectquote",
+    category: "professional",
     bullets: [
       "Developed and maintained shared libraries including design system, form abstractions, and custom React hooks",
       "Championed frontend chapter's adoption of TypeScript, React-Query, and Next.js through knowledge-transfer talks, writing documentation, and code review feedback",
@@ -96,6 +137,7 @@ export const experience: Role[] = [
     dates: "Sep 2018 – Mar 2020",
     navLabel: "SQ Engineer",
     group: "selectquote",
+    category: "professional",
     bullets: [
       "Worked on team of 4 full-stack engineers building cloud-first insurance sales software including CRM and quote tools using React, Redux, Node, and AWS",
     ],
@@ -107,6 +149,7 @@ export const experience: Role[] = [
     company: "Hack for LA",
     dates: "Sep 2019 – Apr 2020",
     navLabel: "Hack for LA",
+    category: "personal",
     bullets: [
       "Led frontend development of foodoasis.la, a tool to locate free food in LA metro",
     ],
@@ -118,6 +161,7 @@ export const experience: Role[] = [
     company: "Epiq",
     dates: "May 2018 – Aug 2018",
     navLabel: "Epiq",
+    category: "professional",
     bullets: [
       "Shipped UI and RESTful API features to production for leading e-Discovery ingestion and analysis product",
       "Quickly learned new languages and frameworks (C#, .NET) to become valuable contributor to software team",
@@ -125,15 +169,56 @@ export const experience: Role[] = [
     tags: ["JavaScript", "React", "Node.js", "C#", "MSSQL"],
   },
   {
+    id: "launchcode",
+    title: "Web Development Certificate",
+    company: "Launchcode",
+    dates: "2017 – 2018",
+    navLabel: "Launchcode",
+    category: "personal",
+    bullets: [],
+    tags: [],
+  },
+  {
     id: "stueve",
     title: "Staff Attorney",
     company: "Stueve Siegel Hanson LLP",
     dates: "Jun 2015 – Nov 2017",
     navLabel: "Stueve Siegel",
+    category: "professional",
     bullets: [
       "Worked primarily on the firm's Fair Labor and Standards Act litigation against DIRECTV, managing the third party production practice for hundreds of individual FLSA cases in over 35 federal courts",
       "Worked directly with collective action and individual case plaintiffs across the country, conducting interviews, explaining the law, overseeing production efforts, and drafting discovery pleadings",
     ],
+    tags: [],
+  },
+  {
+    id: "mobar",
+    title: "Member, Missouri Bar Association",
+    company: "",
+    dates: "October 2014",
+    navLabel: "MO Bar",
+    category: "personal",
+    bullets: [],
+    tags: [],
+  },
+  {
+    id: "ku-law",
+    title: "Juris Doctor",
+    company: "University of Kansas School of Law",
+    dates: "2011 – 2014",
+    navLabel: "KU Law",
+    category: "personal",
+    bullets: [],
+    tags: [],
+  },
+  {
+    id: "ku",
+    title: "Bachelor of Arts, American Studies",
+    company: "University of Kansas",
+    dates: "2007 – 2011",
+    navLabel: "KU",
+    category: "personal",
+    bullets: [],
     tags: [],
   },
 ];
