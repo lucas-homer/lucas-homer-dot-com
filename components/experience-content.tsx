@@ -24,6 +24,8 @@ function buildSections(): Section[] {
   const rostrRole = experience.find((r) => r.id === "rostr");
   const selectQuoteRoles = experience.filter((r) => r.group === "selectquote");
 
+  const chefdepartyRole = experience.find((r) => r.id === "chefdeparty");
+
   // ROSTR first
   if (rostrRole) {
     sections.push({
@@ -38,7 +40,21 @@ function buildSections(): Section[] {
     });
   }
 
-  // Courses card second
+  // Chef De Party second
+  if (chefdepartyRole) {
+    sections.push({
+      id: chefdepartyRole.id,
+      navLabel: chefdepartyRole.navLabel,
+      category: chefdepartyRole.category,
+      node: (
+        <div key={chefdepartyRole.id} id={chefdepartyRole.id} className="scroll-mt-24">
+          <RoleCard role={chefdepartyRole} />
+        </div>
+      ),
+    });
+  }
+
+  // Courses card third
   sections.push({
     id: "courses",
     navLabel: "AI Training",
@@ -51,7 +67,7 @@ function buildSections(): Section[] {
   });
 
   for (const role of experience) {
-    if (role.id === "rostr") continue;
+    if (role.id === "rostr" || role.id === "chefdeparty") continue;
 
     if (role.group === "selectquote") {
       if (!sqInserted) {

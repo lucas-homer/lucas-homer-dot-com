@@ -42,6 +42,22 @@ export function RoleCard({
           ))}
         </div>
       )}
+
+      {role.links && role.links.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-x-3 text-sm">
+          {role.links.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground underline decoration-white/20 underline-offset-2 hover:text-foreground hover:decoration-white/40"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ export interface Role {
   category: "professional" | "personal";
   bullets: string[];
   tags: string[];
+  links?: { label: string; url: string }[];
 }
 
 export interface CourseItem {
@@ -46,6 +47,35 @@ export const courses: CourseItem[] = [
 ];
 
 export const experience: Role[] = [
+  {
+    id: "chefdeparty",
+    title: "Creator & Developer",
+    company: "Chef De Party",
+    dates: "Jan 2026 – Present",
+    navLabel: "Chef De Party",
+    category: "personal",
+    bullets: [
+      "Built a dinner party planning app to help hosts manage ambitious menus with multi-step preparations, from building a recipe collection through day-of cooking execution",
+      "Designed a conversational party wizard using Vercel AI SDK with tool-calling agents for complex tasks like recipe generation and timeline planning, and deterministic regex-based workflows for structured inputs to reduce latency and API costs",
+      "Recipes can be generated with AI via Google Gemini, extracted from URLs or photos, or entered manually -- all stored as structured data for reuse across parties",
+      "AI-generated cooking timeline works backwards from party time to schedule phased reminders (advance prep, day-before, day-of) delivered via email or synced to Google Calendar",
+      "Guest management with shareable invite links, personalized guest links, and email invitations, plus RSVP tracking and potluck-style contribution coordination",
+      "Deployed on Cloudflare Workers with D1, Durable Objects for scheduled reminders, and Langfuse for LLM observability",
+    ],
+    tags: [
+      "TypeScript",
+      "React",
+      "Hono",
+      "Cloudflare Workers",
+      "Vercel AI SDK",
+      "Google Gemini",
+      "Drizzle ORM",
+    ],
+    links: [
+      { label: "chefde.party", url: "https://chefde.party" },
+      { label: "GitHub", url: "https://github.com/lucas-homer/chefdeparty" },
+    ],
+  },
   {
     id: "rostr",
     title: "Staff Software Engineer",
