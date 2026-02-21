@@ -124,7 +124,7 @@ export function ExperienceContent() {
             Experience
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            A decade of building for the web.
+            Elevating products and teams with technical know-how and clear communication.
           </p>
           <div className="mt-4">
             <FilterPills active={filter} onChange={setFilter} />
